@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.0" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="使用CSS+XML完成任意文档的渲染css 并非只能作用于html元素，任意的tag都可以定义相应的css规则。 将css规则和xml文档喂给浏览器引擎，就可以渲染出合适的页面。 eg:">
+<meta name="keywords" content="码农 蓝星">
+<meta property="og:type" content="article">
+<meta property="og:title" content="some_thoughts">
+<meta property="og:url" content="https://dumbdonkey.github.io/2019/06/27/some-thoughts/index.html">
+<meta property="og:site_name" content="蓝星码农生存手册">
+<meta property="og:description" content="使用CSS+XML完成任意文档的渲染css 并非只能作用于html元素，任意的tag都可以定义相应的css规则。 将css规则和xml文档喂给浏览器引擎，就可以渲染出合适的页面。 eg:">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://dumbdonkey.github.io/2019/06/27/some-thoughts/resource/2019-06-27-16-13-47.png">
+<meta property="og:image" content="https://dumbdonkey.github.io/2019/06/27/some-thoughts/resource/2019-06-27-16-14-04.png">
+<meta property="og:updated_time" content="2019-09-07T14:58:45.462Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="some_thoughts">
+<meta name="twitter:description" content="使用CSS+XML完成任意文档的渲染css 并非只能作用于html元素，任意的tag都可以定义相应的css规则。 将css规则和xml文档喂给浏览器引擎，就可以渲染出合适的页面。 eg:">
+<meta name="twitter:image" content="https://dumbdonkey.github.io/2019/06/27/some-thoughts/resource/2019-06-27-16-13-47.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://dumbdonkey.github.io/2019/06/27/some-thoughts/">
+
+
+
+
+
+  <title>应用迁移至k8s后文件句柄暴增定位 | 蓝星码农生存手册</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">蓝星码农生存手册</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dumbdonkey.github.io/2018/11/14/应用迁移k8s后文件句柄暴增定位/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="dumbdonkey">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝星码农生存手册">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">应用迁移至k8s后文件句柄暴增定位</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-14T16:34:34+08:00">2018-11-14</time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/故障排查/" itemprop="url" rel="index">
+                    <span itemprop="name">故障排查</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>运维发现部署在k8s环境上的应用A比在stable环境中的句柄数要多十倍. </p>
+<h2 id="排查过程"><a href="#排查过程" class="headerlink" title="排查过程"></a>排查过程</h2><h3 id="初步分析"><a href="#初步分析" class="headerlink" title="初步分析"></a>初步分析</h3><p>通过lsof 命令看了下进程打开的文件句柄，发现其中<strong>pipe</strong>出现了很多次，大概1300次, 而相对应的stable环境中的应用A打开的pipe为130次</p>
+<p>问题:</p>
+<p>为什么会有这么多pipe,是谁创建的，为什么要创建?</p>
+<p>我并不是很熟悉java中涉及pipe的场景，所以根本就不知道谁会创建pipe，只能先找到所有会使用pipe的地方，然后在进一步分析.</p>
+<p><strong>如何找到所有使用pipe的地方？</strong></p>
+<p>想想貌似只能拦截下pipe的调用，一旦发现有进程调pipe，就记录下调用栈，通过这样的方式应该就可以拿到一些pipe的使用场景了.</p>
+<p>由于不知道是哪些java的api会调用pipe操作，在java层面进行拦截是不可能的了，只能在系统层进行尝试了.</p>
+<p>鉴于pipe是一个system call, 可以考虑通过strace -e trace=pipe 进行跟踪。</p>
+<p>不过由于strace仅仅是负责跟踪，在我们拿到相应进程号之后再去查看调用栈的时候可能已经太迟了。 所以该方法没啥用.</p>
+<h3 id="可能的思路"><a href="#可能的思路" class="headerlink" title="可能的思路"></a>可能的思路</h3><p>能够拦截特定调用，在拦截到后又能够执行特定action的工具，听说过的有以下几种:</p>
+<ol>
+<li><p>dtrace </p>
+<p> 不熟悉,看了下文档用起来很麻烦的样子</p>
+</li>
+<li><p>使用linux LD_PRELOAD机制增强pipe调用. </p>
+<p> 只是个思路，或许可行</p>
+</li>
+<li><p>gdb </p>
+<p> 相对熟悉一些</p>
+</li>
+</ol>
+<h3 id="gdb的排查步骤"><a href="#gdb的排查步骤" class="headerlink" title="gdb的排查步骤"></a>gdb的排查步骤</h3><ol>
+<li><p>使用gdb启动应用</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">gdb --args /usr/enniu/java/bin/java /var/www/xxx/target/XXXX.jar</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>拦截pipe的断点</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(gdb) catch syscall pipe</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>忽略SIGSEGV信号</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(gdb) handle SIGSEGV nostop noprint pass</span><br></pre></td></tr></table></figure>
+
+<p> 为什么要做这个?看这个 : <a href="https://neugens.wordpress.com/2015/02/26/debugging-the-jdk-with-gdb/" target="_blank" rel="noopener">https://neugens.wordpress.com/2015/02/26/debugging-the-jdk-with-gdb/</a></p>
+</li>
+<li><p>执行程序</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(gdb) run</span><br><span class="line">当java程序调用pipe时，程序就会暂停下来，等待用户指令.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>等待捕获pipe调用事件</p>
+</li>
+<li><p>捕获pipe调用事件</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Catchpoint 1 (returned from syscall &apos;pipe&apos;), 0x00007fd22237ff07 in pipe () at ../sysdeps/unix/syscall-template.S:82</span><br><span class="line">82	T_PSEUDO (SYSCALL_SYMBOL, SYSCALL_NAME, SYSCALL_NARGS)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行info thread 查看下当前的线程如下:</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">3 Thread 0x7fd2203b7700 (LWP 1630)  pthread_cond_wait@@GLIBC_2.3.2 () at ../nptl/sysdeps/unix/sysv/linux/x86_64/pthread_cond_wait.S:183</span><br><span class="line">* 2 Thread 0x7fd222e81700 (LWP 1605)  0x00007fd22237ff07 in pipe () at ../sysdeps/unix/syscall-template.S:82</span><br><span class="line">1 Thread 0x7fd222e83700 (LWP 1522)  0x00007fd222a5a2fd in pthread_join (threadid=140540505495296, thread_return=0x7ffeaef13e00) at pthread_join.c:89</span><br></pre></td></tr></table></figure>
+
+<p> 可以看到线程2是活的。记住1605这个进程号.</p>
+</li>
+<li><p>执行gcore dump下当前的内存镜像</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(gdb) gcore</span><br><span class="line">Saved corefile core.1522</span><br></pre></td></tr></table></figure>
+
+<p> 为啥要gcore ,因为在默认的gdb环境下，看不到java的调用栈.</p>
+</li>
+<li><p>使用 jstack java core.1522 打印线程栈.</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Thread 1605: (state = IN_NATIVE)</span><br><span class="line">- sun.nio.ch.IOUtil.makePipe(boolean) @bci=0 (Interpreted frame)</span><br><span class="line">- sun.nio.ch.EPollSelectorImpl.&lt;init&gt;(java.nio.channels.spi.SelectorProvider) @bci=27, line=65 (Interpreted frame)</span><br><span class="line">- sun.nio.ch.EPollSelectorProvider.openSelector() @bci=5, line=36 (Interpreted frame)</span><br><span class="line">- io.netty.channel.nio.NioEventLoop.openSelector() @bci=4, line=174 (Interpreted frame)</span><br><span class="line">- io.netty.channel.nio.NioEventLoop.&lt;init&gt;(io.netty.channel.nio.NioEventLoopGroup, java.util.concurrent.ThreadFactory, java.nio.channels.spi.SelectorProvider, io.netty.channel.SelectStrategy, io.netty.util.concurrent.RejectedExecutionHandler) @bci=88, line=150 (Interpreted frame)</span><br><span class="line">- io.netty.channel.nio.NioEventLoopGroup.newChild(java.util.concurrent.ThreadFactory, java.lang.Object[]) @bci=29, line=103 (Interpreted frame)</span><br><span class="line">- io.netty.util.concurrent.MultithreadEventExecutorGroup.&lt;init&gt;(int, java.util.concurrent.ThreadFactory, java.lang.Object[]) @bci=146, line=64 (Interpreted frame)</span><br><span class="line">- io.netty.channel.MultithreadEventLoopGroup.&lt;init&gt;(int, java.util.concurrent.ThreadFactory, java.lang.Object[]) @bci=14, line=50 (Interpreted frame)</span><br><span class="line">- io.netty.channel.nio.NioEventLoopGroup.&lt;init&gt;(int, java.util.concurrent.ThreadFactory, java.nio.channels.spi.SelectorProvider, io.netty.channel.SelectStrategyFactory) @bci=22, line=70 (Interpreted frame)</span><br><span class="line">- io.netty.channel.nio.NioEventLoopGroup.&lt;init&gt;(int, java.util.concurrent.ThreadFactory, java.nio.channels.spi.SelectorProvider) @bci=7, line=65 (Interpreted frame)</span><br><span class="line">- io.netty.channel.nio.NioEventLoopGroup.&lt;init&gt;(int, java.util.concurrent.ThreadFactory) @bci=6, line=56 (Interpreted frame)</span><br><span class="line">- org.asynchttpclient.netty.channel.ChannelManager.&lt;init&gt;(org.asynchttpclient.AsyncHttpClientConfig, io.netty.util.Timer) @bci=394, line=173 (Interpreted frame)</span><br><span class="line">- org.asynchttpclient.DefaultAsyncHttpClient.&lt;init&gt;(org.asynchttpclient.AsyncHttpClientConfig) @bci=73, line=85 (Interpreted frame)</span><br></pre></td></tr></table></figure>
+
+<p> 可以看到1605线程的调用栈如上. （此时看到了java层面调用pipe的地方，也许只是java中唯一与pipe发生交互的地方，也许不是,在采集几个样本看看…).</p>
+</li>
+<li><p>执行cont,不一会又会捕捉到pipe调用事件, 重复8,9 步几次. </p>
+<p>可以观察到几乎所有的pipe操作都是sun.nio.ch.IOUtil.makePipe 触发的，而上游都由Netty的NioEventLoopGroup触发.</p>
+</li>
+</ol>
+<h3 id="NioEventLoopGroup代码分析"><a href="#NioEventLoopGroup代码分析" class="headerlink" title="NioEventLoopGroup代码分析"></a>NioEventLoopGroup代码分析</h3><p>翻了下NioEventLoopGroup的代码,有如下一段:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">MultithreadEventLoopGroup.java</span><br><span class="line"></span><br><span class="line">protected MultithreadEventExecutorGroup(int nThreads, ThreadFactory threadFactory, Object... args) &#123;</span><br><span class="line">        ...</span><br><span class="line">        for (int i = 0; i &lt; nThreads; i ++) &#123;</span><br><span class="line">            boolean success = false;</span><br><span class="line">            try &#123;</span><br><span class="line">                children[i] = newChild(threadFactory, args);// 这里每次调用创建一个pipe。 如果循环很大的话，是可能创建很多pipe的.</span><br><span class="line">                success = true;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>查看下nThreads的赋值逻辑如下:</p>
+<p>如果调用方有指定，则使用指定值，否则为cpu数*2. 代码如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">MultithreadEventLoopGroup.java</span><br><span class="line"></span><br><span class="line">static &#123;</span><br><span class="line">    DEFAULT_EVENT_LOOP_THREADS = Math.max(1, SystemPropertyUtil.getInt(</span><br><span class="line">            &quot;io.netty.eventLoopThreads&quot;, NettyRuntime.availableProcessors() * 2));</span><br><span class="line"></span><br><span class="line">    if (logger.isDebugEnabled()) &#123;</span><br><span class="line">        logger.debug(&quot;-Dio.netty.eventLoopThreads: &#123;&#125;&quot;, DEFAULT_EVENT_LOOP_THREADS);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>从代码的分析结果来看，怀疑是k8s环境中cpu核数过多导致，查看k8s环境中应用所在容器的cpu数，为20是stable环境的10倍。</p>
+<p>至此, stable环境中为130，k8s为1300的原因就找到啦。</p>
+<h2 id="遗留问题-（先占坑）"><a href="#遗留问题-（先占坑）" class="headerlink" title="遗留问题 （先占坑）"></a>遗留问题 （先占坑）</h2><ol>
+<li>为什么用epoll的时候会出现触发pipe的创建?</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/故障排查/" rel="tag"># 故障排查</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/14/vue/" rel="prev" title="vue从入门到精通">
+                vue从入门到精通 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">dumbdonkey</p>
+              <p class="site-description motion-element" itemprop="description">站在宇宙的尽头,穿越浩渺时空,俯视人生、对待生命!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排查过程"><span class="nav-number">2.</span> <span class="nav-text">排查过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初步分析"><span class="nav-number">2.1.</span> <span class="nav-text">初步分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可能的思路"><span class="nav-number">2.2.</span> <span class="nav-text">可能的思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gdb的排查步骤"><span class="nav-number">2.3.</span> <span class="nav-text">gdb的排查步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NioEventLoopGroup代码分析"><span class="nav-number">2.4.</span> <span class="nav-text">NioEventLoopGroup代码分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结论"><span class="nav-number">3.</span> <span class="nav-text">结论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遗留问题-（先占坑）"><span class="nav-number">4.</span> <span class="nav-text">遗留问题 （先占坑）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">dumbdonkey</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a> v6.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
