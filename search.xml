@@ -36,7 +36,7 @@
   <entry>
     <title><![CDATA[单点登陆]]></title>
     <url>%2F2019%2F01%2F14%2Fsso%2F</url>
-    <content type="text"><![CDATA[单点登录为什么要单点登录如果用户访问每个系统时都要登录一遍岂不很麻烦？ 所以就产生单点登录的需求，即用户在同一个浏览器上只需要登录一次(跨浏览器的目前好像没有做到的，这个需要os的协助）,在访问其他系统时就会自动认证并登录. 实现方式cookie共享当我们只有一个系统时，我们可能会将登录信息存储在cookie或session中（如果直接将用户信息存储cookie中，一是可能存不下，二是可能会有安全问题，即使加密，由于代码用户可以看见，也存在被破解的风险). 那当我们有多个系统A,B,C时，是否依然可以如上的方法呢? 当多个系统拥有共同的顶级域名时，依据cookie的可见性规则，使用上述的方案也可实现单点登录的需求. 中间页跳转那么如果A,B,C三个系统不具有共同的顶级域名时该如何处理? 我们可以独立出一个单独的系统D(假设D系统的域名为www.acct.com)专门负责用户登录与认证. 那么在用户登录www.acct.com后，在浏览器的cookie中，该域名下就会有我们写入的cookie www.acct.com/ 维护登录cookie 当系统A访问页面www.a.com/a.html时，可以按照如下操作流程进行 浏览器向服务端请求 www.a.com/a.html 服务端判断是否有cookie,没有则返回302重定向到 www.acct.com并携带上原始的连接.eg: http://www.acct.com/sso?target=www.a.com/a.html 浏览器访问 http://www.acct.com/sso?target=www.a.com/a.html 由于之前已经登录过了,那么acct的服务端会检测到cookie的存在。说明当前浏览器之前已经登录过了. 此时只需要生成一个ticketId并添加到目标连接后面，然后使用302在重定向回www.a.com/a.html即可. eg: www.a.com/a.html?ticketId=abcdefg 浏览器再次访问 www.a.com/a.html?ticketId=abcdefg后端服务在处理请求过程中，会检测到ticketId的存在，验证正确性后可以通过相应的接口向D系统获取用户信息，然后在自己的cookie中写入已登录标识. 容易忽略的关键点 单点登录理解过程中容易陷入一个误区： 即系统要校验一个用户是否已登录，必须得通过用户信息. 然而很明显单点系统并不是这样的. 因为事实上验证一个用户是否登录靠的是检查当前浏览器中 登录应用是否已经种植了登录的cookie.如果有就说明登录过，如果没有才需要渲染出登录页. 参考https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies]]></content>
+    <content type="text"><![CDATA[单点登录]]></content>
   </entry>
   <entry>
     <title><![CDATA[方法or事件]]></title>
