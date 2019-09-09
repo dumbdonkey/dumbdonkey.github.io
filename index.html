@@ -344,6 +344,28 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/故障排查/" itemprop="url" rel="index">
+                    <span itemprop="name">故障排查</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -1440,7 +1462,7 @@ debug 源码一探究竟
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://dumbdonkey.github.io/2018/11/14/应用迁移k8s后文件句柄暴增定位/">
+    <link itemprop="mainEntityOfPage" href="https://dumbdonkey.github.io/2018/11/14/vue/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="dumbdonkey">
@@ -1459,7 +1481,7 @@ debug 源码一探究竟
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/14/应用迁移k8s后文件句柄暴增定位/" itemprop="url">应用迁移至k8s后文件句柄暴增定位</a></h1>
+                <a class="post-title-link" href="/2018/11/14/vue/" itemprop="url">vue从入门到精通</a></h1>
         
 
         <div class="post-meta">
@@ -1479,28 +1501,6 @@ debug 源码一探究竟
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/故障排查/" itemprop="url" rel="index">
-                    <span itemprop="name">故障排查</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -1531,14 +1531,17 @@ debug 源码一探究竟
       
         
           
-          背景运维发现部署在k8s环境上的应用A比在stable环境中的句柄数要多十倍. 
-排查过程初步分析通过lsof 命令看了下进程打开的文件句柄，发现其中pipe出现了很多次，大概1300次, 而相对应的stable环境中的应用A打开的pipe为130次
-问题:
-为什么会有这么多pipe,是谁创建的，为
+          [[toc]]
+Vue示例http://jsrun.net/PKXKp/edit
+坑
+箭头函数中的this并不指向当前实例
+https://vuejs.org/v2/guide/instance.html
+
+Vue component 中没有template属性时，会将el绑定元素的html作为te
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/14/应用迁移k8s后文件句柄暴增定位/#more" rel="contents">
+            <a class="btn" href="/2018/11/14/vue/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
