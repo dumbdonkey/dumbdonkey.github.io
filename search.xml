@@ -48,6 +48,12 @@
     <title><![CDATA[并发任务控制设计]]></title>
     <url>%2F2019%2F07%2F24%2F%E5%B9%B6%E5%8F%91%E4%BB%BB%E5%8A%A1%E6%8E%A7%E5%88%B6%E8%AE%BE%E8%AE%A1%2F</url>
     <content type="text"><![CDATA[背景需要将hive表的数据同步至mysql 使用方式sync_app $sync_date 可能的异常场景 两个进程同时导入同一天的数据 任务执行失败 T日的数据可能在T+N日才准备好 每天不能只同步当天的数据，需要考虑历史上所有未成功的任务 如何阻止异常情况 任务注册 以source,target,sync_date作为唯一约束 注册时先检查是否已经注册，未注册则进行注册。 并发冲突: T1,T2同时检测到没注册，并行注册 解决: 由于有唯一约束的存在，即使并发注册也会保证只有一个成功 任务执行 使用exec_log记录执行状态，不设置任何约束 每次执行时，从注册表中获取未成功的任务。(注册表中的任务设置状态位，成功的任务则无需执行) 并发冲突: T1,T2 并发从任务注册表获取未成功任务，并执行同步操作. 此时会获取到同样的任务列表，不加限制将导致数据重复 解决: 从根本避免多个进程的存在. 添加running_instance表. 每个进程启动时都检查这张表是否有记录，有则退出，没有则添加。 通过唯一约束保证只有一个running_instance. 使用select * for update的方式加表锁,避免另一个进程获取到任务列表 问题: 另一个进程长期block住，无效占用资源。 获取到任务列表后，逐一使用乐观锁的方式加锁，加锁成功的,作为当前进程的真正待执行列表 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647public void syncWaitedJobs() &#123; //以乐观锁方式锁定待执行任务 update set status=working where status=waiting /** * 1. 注册任务 * 2. 取出wait状态的任务 * 3. 过滤出ready的任务 * 4. 同步 **/ this.registerJob(syncTable, dt); // 1. select * from where status=wait // 2. update status=locking where id=id List&lt;SyncJob&gt; syncJobs = jobService.getWaitedSyncJob(syncTable.getFullName(), TARGET); Map&lt;SyncJob, EnumJobExecStatus&gt; execResults = null; try &#123; List&lt;SyncJob&gt; readyJobs = syncJobs.stream() .filter(e -&gt; isReady(e.getSource(), e.getSync_date())) .collect(Collectors.toList()); execResults = this.doSyncReadyJobs(syncTable, readyJobs); &#125; finally &#123; /** * 更新syncJob状态 * 执行成功，则更新为成功，否则恢复等待状态 * 注意: 极端情况下(比如jvm挂了)，syncJob的状态会一直处于LOCKED,需要人工介入 */ if (execResults == null || execResults.isEmpty()) &#123; syncJobs.forEach(e -&gt; &#123; jobService.updateSyncJob(e.getId(), EnumJobStatus.WAIT); &#125;); &#125; else &#123; //没有执行状态的恢复为WAIT syncJobs.removeAll(execResults.keySet()); syncJobs.forEach(e -&gt; &#123; jobService.updateSyncJob(e.getId(), EnumJobStatus.WAIT); &#125;); execResults.forEach(new BiConsumer&lt;SyncJob, EnumJobExecStatus&gt;() &#123; @Override public void accept(SyncJob syncJob, EnumJobExecStatus enumJobExecStatus) &#123; jobService.updateSyncJob(syncJob.getId(), enumJobExecStatus == EnumJobExecStatus.SUCCESS ? EnumJobStatus.SUCCESS : EnumJobStatus.WAIT); &#125; &#125;); &#125; &#125;&#125;]]></content>
+      <categories>
+        <category>最佳实践</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[python无法正常执行]]></title>
@@ -87,6 +93,12 @@
     <title><![CDATA[分层实验学习记录]]></title>
     <url>%2F2019%2F06%2F18%2F%E5%88%86%E5%B1%82%E5%AE%9E%E9%AA%8C%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95%2F</url>
     <content type="text"><![CDATA[分层实验系统背景我们开发一个新的功能，如何知道用户是否会喜欢呢？其中一种方式就是通过AB test. 直观思维下的AB test系统简单的做法就是我们将整体用户流量划分出一部分给当前的feature, 然后在通过一些数据分析新功能的效果. 限制: 如果我们想同时评估多个feature,因为流量的总量是有限的，而且每个feature需要的最小流量也必须保障足够大. 如何解决这种问题? 分层实验的思路核心思路: 将实验分层，层与层之间正交. 即上一次实验的结果均匀分发的下一层, 确保下层无论有多少组实验，每个实验的受到上层实验的影响都是一致的. 如上, 第一层实验2的效果会均匀分发到第2层， 将要做的一大堆实验进行分层，相互之间有影响的分在一层，没有影响的分在不同层。 这样保证了层与层之间的正交. 如何实施 将相关联的一组参数放到一个subset中. 为什么要将相关联的参数放在一组参数里，因为这些参数不可以在不考虑其他参数值的情况下任意调整. eg: 网页的背景色和前景色在设置时必须要相互考虑，不然都设置成一样的话，网页就不可读了. 每个subset构成一个layer 每个layer可以包含多个实验 (实验的个数由这组参数的cardinality 决定) 实验平台的作用 自动化 更精准的流量细分(多条件支持比如用户特征,设备特征等等),流量切分，效果评估,流量校验 历史追溯 怎么做 效果评估 请求的实验信息会以 tag 的形式记录在生产环境的请求日志中，形如： layer1_layer2_layer3_…_layerN。 请求日志会落地到广告数据总线系统，再由广告实时流系统进行消费、数据清洗、实验效果指标计算等工作 问题 为什么要强调层与层之间流量的正交性？ 第一层的流量通过二次离散,均匀分配到第二层,那么第二层每个桶都会收到第一层桶2实验的影响(同时也意味着，第二层每个桶做实验都是平等的) 如果层与层之间流量不正交(即第一层的2桶用什么流量,第二层的桶也用什么流量的)的话，那么第二层中将只有桶2受到第一层桶2的实验影响，那么第二层的各个实验之间将不在具有一致的实验基础，无法进行实验结果比对. 什么是流量饥饿? 理解为传统方式下,实验太多导致流量不足 什么是流量bias? 流量均匀性验证 参考:https://blog.csdn.net/bigheadyushan/article/details/78089215 https://www.infoq.cn/article/weibo-ad-layered-experiment-platform-faraday]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>学习</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[pycharm_issue]]></title>
@@ -190,6 +202,28 @@
       </categories>
       <tags>
         <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[spring中在部分接口出错时以特定代码告知上游]]></title>
+    <url>%2F2017%2F12%2F22%2Fspring%E4%B8%AD%E5%9C%A8%E9%83%A8%E5%88%86%E6%8E%A5%E5%8F%A3%E5%87%BA%E9%94%99%E6%97%B6%E4%BB%A5%E7%89%B9%E5%AE%9A%E4%BB%A3%E7%A0%81%E5%91%8A%E7%9F%A5%E4%B8%8A%E6%B8%B8%2F</url>
+    <content type="text"><![CDATA[需求背景后端系统的部分接口因各种原因经常会挂。但是开发初期的时候并没有考虑到这一点。 测试环境运行时经常发生这个问题。 虽然这些接口出错是可接受的，但是前端只要收到错误的响应就会弹出一个提示，甚是恼人，希望可以解决这个问题。 两个思路 前端进行处理，针对某些接口出错的情况，不进行异常提示。 但是目前前端采用了全局处理机制，即只要调用出错就一定会alert 后端处理，约定一个特殊的编码，当前端检测到改编码时，忽略错误提示. 第二个思路的几种实现方案及各自缺陷.方案推导过程如何在N个接口各自以不同方式出错的情况下，对外暴露一个统一的编码？ 要达到这个效果，必须存在一个多对1的映射关系，只有这样才能保证产生统一的编码。 Ok，接下来讨论映射关系的产生。 异常是一个比较好的标记方式，只要检测到特定的异常类，就可以认为需要产生统一编码。 但是这意味着controller的每个方法我们都要去添加一个try catch块。 为了减少写try catch这种模板代码，我们只要想办法自动生成这段逻辑即可。 AOP貌似是一个不错的选择，可以拦截所有的controller方法，然后再根据方法上的元数据标识(注解)进行处理. 还没有其他手段? 考虑是否可以从每个方法都会经过的路径入手？ 每个request都会经过容器内置的filter层、spring提供的interceptor层。 那么在这两个之前任意选择一个是否可行呢？ 不是很可行，因为spring的处理机制无法保证在filter和interceptor介入的时候，response还没有被commit. 即一旦response被commit,我们就无法调整status和header了，只能在输出内容上动手脚了. 使用了ResponseBody注解的情况下，response会在很早的时候就commit. 详见(这里)[https://jira.spring.io/si/jira.issueviews:issue-html/SPR-9226/SPR-9226.html]的讨论]]></content>
+      <categories>
+        <category>spring</category>
+      </categories>
+      <tags>
+        <tag>思考</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[一次方案的讨论]]></title>
+    <url>%2F2017%2F12%2F07%2F%E4%B8%80%E6%AC%A1%E6%96%B9%E6%A1%88%E7%9A%84%E8%AE%A8%E8%AE%BA%2F</url>
+    <content type="text"><![CDATA[背景有A，B两个项目 A项目做服务治理,希望提供一个友好的配置调整界面给用户进行使用,包括审核，review流程. B项目做发布系统，包含了标准的审核，review,配置修改一整套流程。 B项目的配置修改属于原始的文本编辑形式,对于用户来说易用性不高。 A项目自身又没有做审核,review流程的打算. 问题:如何利用两个项目各自的特点完成目标? 从项目A角度考虑, 友好界面没有任何问题，审核流程开发成本高。 修改需求，将审核流程完全踢掉 这个显然无法被接受 既然审核流程不可踢掉，那是否可以只修改不需要审核的配置呢？ 通过审查整个配置项，或许会发现一个子集不需要审核，但是这样还是相当于弱化了原始需求。 B项目升级自己的配置修改UI,然后由A项目将B项目整个进行嵌入 这种方式看起来是最完美的。 因为无论用户从那个项目进入都可以得到较好的配置修改体验。 问题: B项目人手不足,且有一些功能B项目并不存在,需要调用A项目的后端接口。 简而言之就是合作难度较大 B项目提供接口，A项目将ui组件产生的结果通过API传给B项目. 同时系统跳转至B系统，用户继续审核等流程。 缺点: B项目无法享受到UI编辑组件的收益. 最终选择为3 其他问题 审核流程缺乏灵活判断 可以基于环境，配置的安全等级来判断是否要进行审核流程.]]></content>
+      <categories>
+        <category>方案讨论</category>
+      </categories>
+      <tags>
+        <tag>方案讨论</tag>
       </tags>
   </entry>
 </search>
