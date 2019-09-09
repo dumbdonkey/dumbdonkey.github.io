@@ -80,7 +80,7 @@
   <entry>
     <title><![CDATA[redis-cli_stuck]]></title>
     <url>%2F2019%2F03%2F14%2Fredis-cli-stuck%2F</url>
-    <content type="text"><![CDATA[背景今天突然发现redis-cli无法连接redis-server了。 尝试方法 查看监听端口，使用telnet连接一切正常，能够进行指令交互(我发送info后，可以收到对应的响应) 通过strace跟踪redis-cli进程发现卡在read操作上,如下: 12Process 30299 attachedread(3, 使用netstat查看对端redis-server的情况，会发现对应的connection上的send-queue为327,未从内核发送给客户端,如下: 12tcp 0 327 10.85.125.2:6379 10.85.125.2:60131 ESTABLISHED 29628/redis-server 查看了网卡流量，是正常的. dmesg中有如下的错误信息 12&quot;IPV6 header not found&quot; 提问链接https://segmentfault.com/q/1010000018457610 https://github.com/antirez/redis/issues/5918]]></content>
+    <content type="text"><![CDATA[背景突然发现redis-cli无法连接redis-server了。 尝试方法 查看监听端口，使用telnet连接一切正常，能够进行指令交互(我发送info后，可以收到对应的响应) 通过strace跟踪redis-cli进程发现卡在read操作上,如下: 12Process 30299 attachedread(3, 使用netstat查看对端redis-server的情况，会发现对应的connection上的send-queue为327,未从内核发送给客户端,如下: 12tcp 0 327 10.85.125.2:6379 10.85.125.2:60131 ESTABLISHED 29628/redis-server 查看了网卡流量，是正常的. dmesg中有如下的错误信息 12&quot;IPV6 header not found&quot; 提问链接https://segmentfault.com/q/1010000018457610 https://github.com/antirez/redis/issues/5918]]></content>
       <categories>
         <category>故障排查</category>
       </categories>
