@@ -124,7 +124,7 @@
 
 
 
-  <title>归档 | 蓝星码农生存手册</title>
+  <title>添加一段代码，让hexo更好的支持本地图片 | 蓝星码农生存手册</title>
   
 
 
@@ -143,7 +143,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -289,142 +289,225 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dumbdonkey.github.io/2019/09/09/hexo最佳实践/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="dumbdonkey">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝星码农生存手册">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">添加一段代码，让hexo更好的支持本地图片</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-09T11:58:11+08:00">2019-09-09</time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 12 篇日志。 继续努力。
-      </span>
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/最佳实践/" itemprop="url" rel="index">
+                    <span itemprop="name">最佳实践</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
 
-        
+          
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/22/方法or事件/" itemprop="url">
-              
-                <span itemprop="name">方法or事件</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-22T22:35:32+08:00" content="2018-11-22">
-          11-22
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+          
 
+        </div>
+      </header>
+    
 
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/14/vue/" itemprop="url">
-              
-                <span itemprop="name">vue从入门到精通</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-14T16:34:34+08:00" content="2018-11-14">
-          11-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
+      
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>我基本上都是用visual studio code来写markdown的，vs安装插件Paste Image后，贴图片非常方便。</p>
+<p>格式基本是这样的.</p>
+<p><img src="./resource/2019-09-09-17-10-06.png" alt></p>
+<p>然后使用坚果云进行多端同步.</p>
+<p>一直想将一些文章发布到网上，鉴于各种博客书写都很麻烦就放弃了。前段时间了解到了hexo和vuepress,都试了下，发现hexo更合适些. 不过有个严重的问题困扰着我，那就是hexo对图片的支持太不友好了.</p>
+<ul>
+<li><p>有人会用第三方的CDN存储图片</p>
+<p>第三方cdn且不说需要配置额外的插件实现自动上传，万一他挂了呢?!</p>
+</li>
+<li><p>有人会用hexo自带的插件</p>
+<p>hexo自带的插件会改变图片插入方式，这样影响我在本地直接查看</p>
+</li>
+</ul>
+<p>这些方式都不符合我的需求，我不想因为要发布到网上，改变我的书写习惯.</p>
+<p>于是周末抽空写了几十行代码，很好的解决了这个问题。分享出来，希望能帮到有需要的人.</p>
+<h2 id="HowTo"><a href="#HowTo" class="headerlink" title="HowTo"></a>HowTo</h2><ol>
+<li><p>安装visual studio code 及 Paste Image插件。</p>
+<p> 配置如下:</p>
+<p> <img src="./resource/2019-09-09-17-19-48.png" alt></p>
+</li>
+<li><p>添加如下脚本到hexo工程的scripts目录</p>
+</li>
+</ol>
+<pre><code>ps:可能代码需要做一些调整
 
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/14/应用迁移k8s后文件句柄暴增定位/" itemprop="url">
-              
-                <span itemprop="name">应用迁移至k8s后文件句柄暴增定位</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-14T16:34:34+08:00" content="2018-11-14">
-          11-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">&apos;use strict&apos;;</span><br><span class="line"></span><br><span class="line">const fs = require(&apos;hexo-fs&apos;);</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line">* /Users/xxx/Documents/study_projects/hexo-demo/blog/source/_posts/test-3.md</span><br><span class="line">*</span><br><span class="line">* &#123;</span><br><span class="line">*   &quot;fileName&quot;: &quot;test-3.md&quot;,</span><br><span class="line">*   &quot;dir&quot;: &quot;/Users/xxx/Documents/study_projects/hexo-demo/blog/source/_posts&quot;,</span><br><span class="line">*   &quot;fileNameWithoutExt&quot;: &quot;test-3&quot;</span><br><span class="line">* &#125;</span><br><span class="line">* @param path</span><br><span class="line">* @returns &#123;&#123;fileName: string, rootPath: string, dir: string&#125;&#125;</span><br><span class="line">*/</span><br><span class="line">function parsePath(path) &#123;</span><br><span class="line">    let splits = path.split(&quot;/&quot;)</span><br><span class="line">    let fileName = splits[splits.length - 1]</span><br><span class="line">    return &#123;</span><br><span class="line">        fileName: fileName,</span><br><span class="line">        dir: path.split(&quot;/&quot;, splits.length - 1).join(&quot;/&quot;),</span><br><span class="line">        fileNameWithoutExt: fileName.substring(0, fileName.lastIndexOf(&quot;.&quot;)),</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hexo.extend.filter.register(&apos;new_post_path&apos;, function (data, replace) &#123;</span><br><span class="line">    let config = hexo.config;</span><br><span class="line">    let parsed = parsePath(data);</span><br><span class="line">    //hexo new post 请求创建一个同名目录，用于存放内容和资源目录</span><br><span class="line">    let targetDir = parsed.dir + &quot;/&quot; + parsed.fileNameWithoutExt;</span><br><span class="line">    if (fs.existsSync(targetDir)) &#123;</span><br><span class="line">        console.error(&quot;post [&quot; + parsed.dir + &quot;] already exists! plz use another name&quot;)</span><br><span class="line">        throw targetDir + &quot; already exists!&quot;;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        console.debug(&quot;create dir %s&quot;, targetDir);</span><br><span class="line">        fs.mkdirsSync(targetDir);</span><br><span class="line">        //console.debug(&quot;create image dir %s&quot;, targetDir + &quot;/&quot; + config.post_image_dir);</span><br><span class="line">        //fs.mkdirsSync(targetDir + &quot;/&quot; + config.post_image_dir);</span><br><span class="line">    &#125;</span><br><span class="line">    return parsed.dir + &quot;/&quot; + parsed.fileNameWithoutExt + &quot;/&quot; + parsed.fileName;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">//copy image to target dir</span><br><span class="line">hexo.extend.filter.register(&apos;after_post_render&apos;, function (data) &#123;</span><br><span class="line">    let config = hexo.config;</span><br><span class="line">    //2019/09/06/test/</span><br><span class="line">    let parsed = parsePath(data.source);</span><br><span class="line">    //image_dir</span><br><span class="line">    let source_dir = hexo.base_dir + config.source_dir + &quot;/_posts/&quot; + parsed.fileNameWithoutExt + &quot;/resource&quot;;</span><br><span class="line">    let target_dir = hexo.base_dir + config.public_dir + &quot;/&quot; + data.path + &quot;resource&quot;;</span><br><span class="line">    fs.exists(source_dir).then((result) =&gt; &#123;</span><br><span class="line">        if (result) &#123;</span><br><span class="line">            console.debug(&quot;copy from %s to %s&quot;, source_dir, target_dir);</span><br><span class="line">            fs.copyDir(source_dir, target_dir);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    return data;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">hexo.extend.filter.register(&apos;post_permalink&apos;, function (data) &#123;</span><br><span class="line"></span><br><span class="line">    let splits = data.split(&quot;/&quot;)</span><br><span class="line">    //2019/09/06/test/test/--&gt;2019/09/06/test/</span><br><span class="line">    let formatted = splits.slice(0, splits.length - 2).join(&quot;/&quot;)+&quot;/&quot;</span><br><span class="line">    return formatted;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></code></pre><ol start="3">
+<li>用hexo new post 创建一篇博客，使用vs编辑并插入一张图片试试</li>
+</ol>
+<p><strong>版本信息</strong></p>
+<p>hexo: <strong>3.9.0</strong></p>
 
       
-
     </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>谢绝打赏，如果您非要，那下不为例哦 😄!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechat.png" alt="dumbdonkey 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="dumbdonkey 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/hexo/" rel="tag"># hexo</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/09/fastjson泛型逆序列化问题/" rel="next" title="fastjson泛型逆序列化问题">
+                <i class="fa fa-chevron-left"></i> fastjson泛型逆序列化问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -432,6 +515,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -452,8 +539,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -531,6 +627,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HowTo"><span class="nav-number">2.</span> <span class="nav-text">HowTo</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -654,6 +766,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.0"></script>
+
+
 
   
 
