@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.0" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="TBD">
+<meta name="keywords" content="码农 蓝星">
+<meta property="og:type" content="website">
+<meta property="og:title" content="蓝星码农生存手册">
+<meta property="og:url" content="https://dumbdonkey.github.io/about/index.html">
+<meta property="og:site_name" content="蓝星码农生存手册">
+<meta property="og:description" content="TBD">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-09-08T04:42:26.601Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="蓝星码农生存手册">
+<meta name="twitter:description" content="TBD">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://dumbdonkey.github.io/about/">
+
+
+
+
+
+  <title>lvs配置问题导致域名解析失败 | 蓝星码农生存手册</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">蓝星码农生存手册</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dumbdonkey.github.io/2018/10/09/lvs配置问题导致域名解析失败/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="dumbdonkey">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝星码农生存手册">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">lvs配置问题导致域名解析失败</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-09T21:15:24+08:00">2018-10-09</time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/故障排查/" itemprop="url" rel="index">
+                    <span itemprop="name">故障排查</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>用户的服务A依赖一个第三方服务B(服务A与服务B通过http域名进行交互),服务部署在C1,C2两个机房</p>
+<p>C1机房的服务是可以正常启动的。</p>
+<p>C2机房的服务启动后会报错，错误日志显示连接了一个错误的服务域名</p>
+<h2 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h2><h3 id="服务B中有如下一段问题代码"><a href="#服务B中有如下一段问题代码" class="headerlink" title="服务B中有如下一段问题代码"></a>服务B中有如下一段问题代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public boolean isProduct() &#123;</span><br><span class="line"></span><br><span class="line">        return InetAddress.getByName(&quot;xxx.a.b.c&quot;).isReachable(3000);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>B服务会根据isProduct的返回值去连接不同的域名，即如果isProduct返回false就会连接测试环境的域名。</p>
+<p>由于线上线下配置不同，B服务会返回错误的信息，进而导致服务A出错退出.</p>
+<h2 id="原因跟踪-amp-分析"><a href="#原因跟踪-amp-分析" class="headerlink" title="原因跟踪&amp;分析"></a>原因跟踪&amp;分析</h2><p>使用strace跟踪isReachable的底层表现</p>
+<h3 id="C1机房下的表现"><a href="#C1机房下的表现" class="headerlink" title="C1机房下的表现"></a>C1机房下的表现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[pid 122321] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 3</span><br><span class="line">[pid 122321] connect(3, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 122321] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 3</span><br><span class="line">[pid 122321] connect(3, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 122321] --- SIGSEGV &#123;si_signo=SIGSEGV, si_code=SEGV_MAPERR, si_addr=0&#125; ---</span><br><span class="line">[pid 122321] socket(PF_INET6, SOCK_STREAM, IPPROTO_IP) = -1 EAFNOSUPPORT (Address family not supported by protocol)</span><br><span class="line">[pid 122321] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 4</span><br><span class="line">[pid 122321] connect(4, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 122321] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 4</span><br><span class="line">[pid 122321] connect(4, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 122321] socket(PF_INET, SOCK_DGRAM|SOCK_NONBLOCK, IPPROTO_IP) = 4</span><br><span class="line">[pid 122321] connect(4, &#123;sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr(&quot;172.16.152.252&quot;)&#125;, 16) = 0 #172.16.152.252为C1机房的vip</span><br><span class="line">[pid 122321] poll([&#123;fd=4, events=POLLOUT&#125;], 1, 0) = 1 ([&#123;fd=4, revents=POLLOUT&#125;])</span><br><span class="line">[pid 122321] sendto(4, &quot;\342T\1\0\0\1\0\0\0\0\0\0\5fiona\2rc\00251\2nb\0\0\1\0\1&quot;, 32, MSG_NOSIGNAL, NULL, 0) = 32</span><br><span class="line">[pid 122321] poll([&#123;fd=4, events=POLLIN&#125;], 1, 2000) = 1 ([&#123;fd=4, revents=POLLIN&#125;])</span><br><span class="line">[pid 122321] recvfrom(4, &quot;\342T\205\200\0\1\0\2\0\f\0\f\5fiona\2rc\00251\2nb\0\0\1\0\1&quot;..., 1024, 0, &#123;sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr(&quot;172.16.152.252&quot;)&#125;, [16]) = 482 </span><br><span class="line">[pid 122321] socket(PF_INET, SOCK_RAW, IPPROTO_ICMP) = -1 EPERM (Operation not permitted)</span><br><span class="line">[pid 122321] socket(PF_INET, SOCK_STREAM, IPPROTO_IP) = 4</span><br><span class="line">[pid 122321] connect(4, &#123;sa_family=AF_INET, sin_port=htons(7), sin_addr=inet_addr(&quot;172.16.152.49&quot;)&#125;, 16) = -1 EINPROGRESS (Operation now in progress)</span><br><span class="line">[pid 122321] poll([&#123;fd=4, events=POLLOUT&#125;], 1, 3000) = 1 ([&#123;fd=4, revents=POLLOUT|POLLERR|POLLHUP&#125;])</span><br><span class="line">[pid 122321] getsockopt(4, SOL_SOCKET, SO_ERROR, [111], [4]) = 0 # 正常可联通</span><br><span class="line">true</span><br><span class="line">+++ exited with 0 +++</span><br></pre></td></tr></table></figure>
+
+<h3 id="C2机房下的表现"><a href="#C2机房下的表现" class="headerlink" title="C2机房下的表现"></a>C2机房下的表现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">strace  -e trace=network,poll -f java A</span><br><span class="line">Process 27354 attached</span><br><span class="line">[pid 27354] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 3</span><br><span class="line">[pid 27354] connect(3, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 27354] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 3</span><br><span class="line">[pid 27354] connect(3, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 27354] --- SIGSEGV &#123;si_signo=SIGSEGV, si_code=SEGV_MAPERR, si_addr=0&#125; ---</span><br><span class="line">[pid 27354] socket(PF_INET6, SOCK_STREAM, IPPROTO_IP) = -1 EAFNOSUPPORT (Address family not supported by protocol)</span><br><span class="line">[pid 27354] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 4</span><br><span class="line">[pid 27354] connect(4, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 27354] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 4</span><br><span class="line">[pid 27354] connect(4, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 27354] socket(PF_INET, SOCK_DGRAM|SOCK_NONBLOCK, IPPROTO_IP) = 4</span><br><span class="line">[pid 27354] connect(4, &#123;sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr(&quot;172.16.208.253&quot;)&#125;, 16) = 0 #172.16.208.253为C2机房的VIP</span><br><span class="line">[pid 27354] poll([&#123;fd=4, events=POLLOUT&#125;], 1, 0) = 1 ([&#123;fd=4, revents=POLLOUT&#125;])</span><br><span class="line">[pid 27354] sendto(4, &quot;\274\4\1\0\0\1\0\0\0\0\0\0\5fiona\2rc\00251\2nb\0\0\1\0\1&quot;, 32, MSG_NOSIGNAL, NULL, 0) = 32</span><br><span class="line">[pid 27354] poll([&#123;fd=4, events=POLLIN&#125;], 1, 2000) = 1 ([&#123;fd=4, revents=POLLIN&#125;])</span><br><span class="line">[pid 27354] recvfrom(4, &quot;\274\4\205\200\0\1\0\2\0\f\0\f\5fiona\2rc\00251\2nb\0\0\1\0\1&quot;..., 1024, 0, &#123;sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr(&quot;172.16.208.253&quot;)&#125;, [16]) = 482</span><br><span class="line">[pid 27354] socket(PF_INET, SOCK_RAW, IPPROTO_ICMP) = -1 EPERM (Operation not permitted)</span><br><span class="line">[pid 27354] socket(PF_INET, SOCK_STREAM, IPPROTO_IP) = 4</span><br><span class="line">[pid 27354] connect(4, &#123;sa_family=AF_INET, sin_port=htons(7), sin_addr=inet_addr(&quot;172.16.251.2&quot;)&#125;, 16) = -1 EINPROGRESS (Operation now in progress)</span><br><span class="line">[pid 27354] poll([&#123;fd=4, events=POLLOUT&#125;], 1, 3000) = 0 (Timeout) # 无法联通，等待超时</span><br><span class="line">false</span><br><span class="line">+++ exited with 0 +++</span><br></pre></td></tr></table></figure>
+
+<h3 id="结果分析"><a href="#结果分析" class="headerlink" title="结果分析"></a>结果分析</h3><p>从两个机房的跟踪结果可知，C1机房给出了明确的拒绝响应(能拒绝说明网络是可达的), 而C2机房却在等待3秒后超时了.</p>
+<p>咨询运维两个机房的配置是否存在差异，答复如下:</p>
+<p><img src="./resource/2019-09-09-22-23-59.png" alt></p>
+<p>不过问题是由lvs的模式差异造成还是配置造成，不得而知.</p>
+<h3 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h3><p>由于运维不希望在LVS层做改动,所以问题由用户升级B服务版本解决.</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>有些jdk的接口实现还是挺依赖环境的,底层环境稍有变动就会出现问题. 以后还是得注意.</p>
+<h2 id="java的isReachable实现逻辑"><a href="#java的isReachable实现逻辑" class="headerlink" title="java的isReachable实现逻辑"></a>java的isReachable实现逻辑</h2><p>Inet4AddressImpl.c</p>
+<p>Java_java_net_Inet4AddressImpl_isReachable0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/*</span><br><span class="line">    * Let&apos;s try to create a RAW socket to send ICMP packets</span><br><span class="line">    * This usually requires &quot;root&quot; privileges, so it&apos;s likely to fail.</span><br><span class="line">    */</span><br><span class="line">fd = JVM_Socket(AF_INET, SOCK_RAW, IPPROTO_ICMP);</span><br><span class="line">if (fd != -1) &#123;</span><br><span class="line">    /*</span><br><span class="line">    * It didn&apos;t fail, so we can use ICMP_ECHO requests.</span><br><span class="line">    */</span><br><span class="line">    return ping4(env, fd, &amp;him, timeout, netif, ttl);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">    * Can&apos;t create a raw socket, so let&apos;s try a TCP socket</span><br><span class="line">    */</span><br><span class="line">fd = JVM_Socket(AF_INET, SOCK_STREAM, 0);</span><br><span class="line">if (fd == JVM_IO_ERR) &#123;</span><br><span class="line">    /* note: if you run out of fds, you may not be able to load</span><br><span class="line">        * the exception class, and get a NoClassDefFoundError</span><br><span class="line">        * instead.</span><br><span class="line">        */</span><br><span class="line">    NET_ThrowNew(env, errno, &quot;Can&apos;t create socket&quot;);</span><br><span class="line">    return JNI_FALSE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">SOCK_RAW</span><br><span class="line">sockets provide access to internal network protocols and interfaces.  The</span><br><span class="line">type SOCK_RAW, which is available only to the super-user.</span><br></pre></td></tr></table></figure>
+
+<h2 id="root-账户下的现象"><a href="#root-账户下的现象" class="headerlink" title="root 账户下的现象"></a>root 账户下的现象</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">strace  -x -f -e trace=network java A</span><br><span class="line">Process 17609 attached</span><br><span class="line">[pid 17609] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 3</span><br><span class="line">[pid 17609] connect(3, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 17609] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 3</span><br><span class="line">[pid 17609] connect(3, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 17609] --- SIGSEGV &#123;si_signo=SIGSEGV, si_code=SEGV_MAPERR, si_addr=0&#125; ---</span><br><span class="line">[pid 17609] socket(PF_INET6, SOCK_STREAM, IPPROTO_IP) = -1 EAFNOSUPPORT (Address family not supported by protocol)</span><br><span class="line">[pid 17609] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 4</span><br><span class="line">[pid 17609] connect(4, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 17609] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 4</span><br><span class="line">[pid 17609] connect(4, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 17609] socket(PF_INET, SOCK_DGRAM|SOCK_NONBLOCK, IPPROTO_IP) = 4</span><br><span class="line">[pid 17609] connect(4, &#123;sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr(&quot;172.16.208.253&quot;)&#125;, 16) = 0</span><br><span class="line">[pid 17609] sendto(4, &quot;\xeb\xe5\x01\x00\x00\x01\x00\x00\x00\x00\x00\x00\x05\x66\x69\x6f\x6e\x61\x02\x72\x63\x02\x35\x31\x02\x6e\x62\x00\x00\x01\x00\x01&quot;, 32, MSG_NOSIGNAL, NULL, 0) = 32</span><br><span class="line">[pid 17609] recvfrom(4, &quot;\xeb\xe5\x85\x80\x00\x01\x00\x02\x00\x0c\x00\x0c\x05\x66\x69\x6f\x6e\x61\x02\x72\x63\x02\x35\x31\x02\x6e\x62\x00\x00\x01\x00\x01&quot;..., 1024, 0, &#123;sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr(&quot;172.16.208.253&quot;)&#125;, [16]) = 482</span><br><span class="line">[pid 17609] socket(PF_INET, SOCK_RAW, IPPROTO_ICMP) = 4</span><br><span class="line">[pid 17609] setsockopt(4, SOL_SOCKET, SO_RCVBUF, [61440], 4) = 0</span><br><span class="line">[pid 17609] sendto(4, &quot;\x08\x00\xbc\x66\x44\xc8\x00\x01\x7e\x18\x7e\x5b\x00\x00\x00\x00\xff\x03\x03\x00\x00\x00\x00\x00\x09\x00\x00\x00\x00\x00\x00\x00&quot;..., 52, 0, &#123;sa_family=AF_INET, sin_port=htons(0), sin_addr=inet_addr(&quot;172.16.251.2&quot;)&#125;, 16) = 52  ## 通过icmp包进行检测</span><br><span class="line">[pid 17609] recvfrom(4, &quot;\x45\x00\x00\x48\xa6\x92\x00\x00\x3e\x01\xb1\x9c\xac\x10\xfb\x02\xac\x10\xd1\x62\x00\x00\xc4\x66\x44\xc8\x00\x01\x7e\x18\x7e\x5b&quot;..., 1500, 0, &#123;sa_family=AF_INET, sin_port=htons(0), sin_addr=inet_addr(&quot;172.16.251.2&quot;)&#125;, [16]) = 72</span><br><span class="line">true</span><br><span class="line"></span><br><span class="line">+++ exited with 0 +++</span><br></pre></td></tr></table></figure>
+
+<h2 id="普通账户下的现象"><a href="#普通账户下的现象" class="headerlink" title="普通账户下的现象"></a>普通账户下的现象</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">strace -f -e trace=network,poll java A</span><br><span class="line">Process 18035 attached</span><br><span class="line">[pid 18035] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 3</span><br><span class="line">[pid 18035] connect(3, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 18035] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 3</span><br><span class="line">[pid 18035] connect(3, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 18035] --- SIGSEGV &#123;si_signo=SIGSEGV, si_code=SEGV_MAPERR, si_addr=0&#125; ---</span><br><span class="line">[pid 18035] socket(PF_INET6, SOCK_STREAM, IPPROTO_IP) = -1 EAFNOSUPPORT (Address family not supported by protocol)</span><br><span class="line">[pid 18035] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 4</span><br><span class="line">[pid 18035] connect(4, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 18035] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 4</span><br><span class="line">[pid 18035] connect(4, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 18035] socket(PF_INET, SOCK_DGRAM|SOCK_NONBLOCK, IPPROTO_IP) = 4</span><br><span class="line">[pid 18035] connect(4, &#123;sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr(&quot;172.16.208.253&quot;)&#125;, 16) = 0</span><br><span class="line">[pid 18035] poll([&#123;fd=4, events=POLLOUT&#125;], 1, 0) = 1 ([&#123;fd=4, revents=POLLOUT&#125;])</span><br><span class="line">[pid 18035] sendto(4, &quot;\20\35\1\0\0\1\0\0\0\0\0\0\5fiona\2rc\00251\2nb\0\0\1\0\1&quot;, 32, MSG_NOSIGNAL, NULL, 0) = 32</span><br><span class="line">[pid 18035] poll([&#123;fd=4, events=POLLIN&#125;], 1, 2000) = 1 ([&#123;fd=4, revents=POLLIN&#125;])</span><br><span class="line">[pid 18035] recvfrom(4, &quot;\20\35\205\200\0\1\0\2\0\f\0\f\5fiona\2rc\00251\2nb\0\0\1\0\1&quot;..., 1024, 0, &#123;sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr(&quot;172.16.208.253&quot;)&#125;, [16]) = 482</span><br><span class="line">[pid 18035] socket(PF_INET, SOCK_RAW, IPPROTO_ICMP) = -1 EPERM (Operation not permitted) # 没有创建SOCK_RAW的权限</span><br><span class="line">[pid 18035] socket(PF_INET, SOCK_STREAM, IPPROTO_IP) = 4</span><br><span class="line">[pid 18035] connect(4, &#123;sa_family=AF_INET, sin_port=htons(7), sin_addr=inet_addr(&quot;172.16.251.2&quot;)&#125;, 16) = -1 EINPROGRESS (Operation now in progress) # 连接7号端口</span><br><span class="line">[pid 18035] poll([&#123;fd=4, events=POLLOUT&#125;], 1, 3000) = 0 (Timeout) //等待超时</span><br><span class="line">false</span><br><span class="line"></span><br><span class="line">+++ exited with 0 +++</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>谢绝打赏，如果您非要，那下不为例哦 😄!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechat.png" alt="dumbdonkey 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="dumbdonkey 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/09/redis的执行时间限制/" rel="next" title="redis的执行时间限制">
+                <i class="fa fa-chevron-left"></i> redis的执行时间限制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/14/vue/" rel="prev" title="vue从入门到精通">
+                vue从入门到精通 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="dumbdonkey">
+            
+              <p class="site-author-name" itemprop="name">dumbdonkey</p>
+              <p class="site-description motion-element" itemprop="description">站在宇宙的尽头,穿越浩渺时空,俯视人生、对待生命!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/dumbdonkey" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zcauniverse@@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#现象"><span class="nav-number">1.</span> <span class="nav-text">现象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码分析"><span class="nav-number">2.</span> <span class="nav-text">代码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务B中有如下一段问题代码"><span class="nav-number">2.1.</span> <span class="nav-text">服务B中有如下一段问题代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原因跟踪-amp-分析"><span class="nav-number">3.</span> <span class="nav-text">原因跟踪&amp;分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#C1机房下的表现"><span class="nav-number">3.1.</span> <span class="nav-text">C1机房下的表现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C2机房下的表现"><span class="nav-number">3.2.</span> <span class="nav-text">C2机房下的表现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结果分析"><span class="nav-number">3.3.</span> <span class="nav-text">结果分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题解决"><span class="nav-number">3.4.</span> <span class="nav-text">问题解决</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.5.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#java的isReachable实现逻辑"><span class="nav-number">4.</span> <span class="nav-text">java的isReachable实现逻辑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#root-账户下的现象"><span class="nav-number">5.</span> <span class="nav-text">root 账户下的现象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#普通账户下的现象"><span class="nav-number">6.</span> <span class="nav-text">普通账户下的现象</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">dumbdonkey</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
