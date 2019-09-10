@@ -226,4 +226,51 @@
         <tag>方案讨论</tag>
       </tags>
   </entry>
+  <entry>
+    <title><![CDATA[hive编译时间过长导致hiveserver2不可用]]></title>
+    <url>%2F2017%2F07%2F22%2Fhive%E7%BC%96%E8%AF%91%E6%97%B6%E9%97%B4%E8%BF%87%E9%95%BF%E5%AF%BC%E8%87%B4hiveserver2%E4%B8%8D%E5%8F%AF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[背景有人反馈hive sql提交后没有响应 排查jstack 发现一个执行hbase请求的持有锁且一直不释放。 确认了下hbase的sql，发现zk地址有误，导致获取信息总是失败，就不断的在重试. 原因 hive编译过程会加一个全局锁,所有的线程都需要获取这个锁之后才能进行编译。]]></content>
+      <categories>
+        <category>故障排错</category>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>hive</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[curl与浏览器的差异]]></title>
+    <url>%2F2017%2F07%2F19%2Fcurl%E4%B8%8E%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E5%B7%AE%E5%BC%82%2F</url>
+    <content type="text"><![CDATA[Curl 不会对url中的kv对进行url-encode的. 只会原样的发送出去. 1curl -x 127.0.0.1:8888 &quot;http://10.0.47.62:18080/web?city=杭州&quot; --trace - 如上的请求nginx在打日志时会变成: 1http://10.0.47.62:18080/web?city=\xe6\x9d 之类 浏览器在发送前会主动对kv对进行进行一次url-encode所以直接用curl去请求带有中文的连接时会出现问题。 1curl -x 127.0.0.1:8888 &quot;http://10.0.47.62:18080/web&quot; --data-urlencode &quot;city=杭州&quot; --trace - 需要采用data-urlencode的形式去传输]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[自增主键一直返回0的问题]]></title>
+    <url>%2F2017%2F04%2F25%2F%E8%87%AA%E5%A2%9E%E4%B8%BB%E9%94%AE%E4%B8%80%E7%9B%B4%E8%BF%94%E5%9B%9E0%E7%9A%84%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[背景同组的同学说自己写的代码，插入记录后，返回的主键总是0,看了配置神马的都没问题 排查 先排除DB是否有问题 使用mysql-cli执行语句没有任何问题 通过打开general log 追踪执行过的语句也没有任何问题。 通过tcpdump抓包确认mysql没有问题，正确返回了相关值 那只能是程序自身的问题了。 根据反馈没有改动过代码，但是反馈都是不可信的。 首先解压jar包，验证下mybatis配置文件是否正确配置了select-key。 配置正确 核查代码，发现代码有问题。在finally块中强制返回了一个未经初始化的对象即null. finally的返回是会覆盖正常返回的 那么null又是怎么转换为0的呢？排查发现应用代码使用了cglib进行增强，通过查阅cglib代码， cglib在遇到null时会自动根据上下文信息进行转换，当前场景下恰好转成了0]]></content>
+      <categories>
+        <category>故障排错</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>mybatis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[hive-udf问题排查]]></title>
+    <url>%2F2017%2F03%2F08%2Fhive-udf%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%2F</url>
+    <content type="text"><![CDATA[背景BI组的同学说自己写了一个UDF,线下测试没有问题，实际运行后就是与预期不符 排查UDF代码段 测试代码段 解释由于代码本身使用了==进行等值判断 而测试用例又恰好使用了常量池字符串，导致结果通过 但是线上是new出来的字符串.所以就自然无法通过了]]></content>
+      <categories>
+        <category>故障排错</category>
+      </categories>
+      <tags>
+        <tag>hive</tag>
+        <tag>java</tag>
+      </tags>
+  </entry>
 </search>
