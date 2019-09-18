@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[redis_error]]></title>
+    <url>%2F2019%2F09%2F17%2Fredis-error%2F</url>
+    <content type="text"><![CDATA[现象服务器上出现很多如下的日志 12019-09-17 10:17:39,276 [Timer-0] WARN com.xx - jedis quit false: xxx Unexpected end of stream. 排查 通过日志找到对应代码，断点发现是21563这个端口的redis总会出错. 查看21563状态 由close_wait可知，是服务端主动关闭的链接 确认redis有空闲链接主动kill机制 (mysql server也有这种机制的) https://redis.io/topics/clients 查看相应的timeout设定 超时只有3s。 结合代码解释 连接池会不断进行evict检测,其中涉及到testWhileIdle操作. 由于链路上操作比较少，链接很早就被对端干掉了。此时test自然失败，失败后就会接着触发remove操作. 进而出现最初的异常日志. 思考 validateObject失败后，jedis内部已经设定了broken标志，但是在后续处理过程中，并没有检查broken标志，导致再一个失败的链路上发送数据. broken已经为true了。 为什么isConnected检查不会有效果？ 通过调试发现，再flush失败的时候，socket的状态并没有变化 为什么会这样？留坑]]></content>
+      <tags>
+        <tag>留坑</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[java中一些初看略显奇怪的地方]]></title>
     <url>%2F2019%2F09%2F09%2Fjava%E4%B8%AD%E4%B8%80%E4%BA%9B%E5%88%9D%E7%9C%8B%E7%95%A5%E6%98%BE%E5%A5%87%E6%80%AA%E7%9A%84%E5%9C%B0%E6%96%B9%2F</url>
     <content type="text"><![CDATA[date默认需要一个long类型的入参，代码中传递了几个int值的表达式 为什么编译可以通过,为什么不严苛一些?new Integer(1).equals(new Long(1)) 返回fasle从语义上来说，无论是整型1还是长整型1必须是一样的啊，但是在java中就是false的。 具体解释看这里: https://stackoverflow.com/questions/445990/why-is-long-valueof0-equalsinteger-valueof0-false#446911]]></content>

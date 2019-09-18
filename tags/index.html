@@ -310,10 +310,10 @@
         
           <div class="tag-cloud">
             <div class="tag-cloud-title">
-                目前共计 16 个标签
+                目前共计 17 个标签
             </div>
             <div class="tag-cloud-tags">
-              <a href="/tags/hexo/" style="font-size: 21px; color: #6f6f6f">hexo</a> <a href="/tags/hive/" style="font-size: 21px; color: #6f6f6f">hive</a> <a href="/tags/java/" style="font-size: 30px; color: #111">java</a> <a href="/tags/javascript/" style="font-size: 12px; color: #ccc">javascript</a> <a href="/tags/linux/" style="font-size: 12px; color: #ccc">linux</a> <a href="/tags/mybatis/" style="font-size: 12px; color: #ccc">mybatis</a> <a href="/tags/python/" style="font-size: 12px; color: #ccc">python</a> <a href="/tags/redis/" style="font-size: 21px; color: #6f6f6f">redis</a> <a href="/tags/前端/" style="font-size: 12px; color: #ccc">前端</a> <a href="/tags/学习/" style="font-size: 12px; color: #ccc">学习</a> <a href="/tags/思考/" style="font-size: 12px; color: #ccc">思考</a> <a href="/tags/故障排查/" style="font-size: 21px; color: #6f6f6f">故障排查</a> <a href="/tags/方案讨论/" style="font-size: 12px; color: #ccc">方案讨论</a> <a href="/tags/望远镜/" style="font-size: 12px; color: #ccc">望远镜</a> <a href="/tags/算法/" style="font-size: 12px; color: #ccc">算法</a> <a href="/tags/软件设计/" style="font-size: 12px; color: #ccc">软件设计</a>
+              <a href="/tags/hexo/" style="font-size: 21px; color: #6f6f6f">hexo</a> <a href="/tags/hive/" style="font-size: 21px; color: #6f6f6f">hive</a> <a href="/tags/java/" style="font-size: 30px; color: #111">java</a> <a href="/tags/javascript/" style="font-size: 12px; color: #ccc">javascript</a> <a href="/tags/linux/" style="font-size: 12px; color: #ccc">linux</a> <a href="/tags/mybatis/" style="font-size: 12px; color: #ccc">mybatis</a> <a href="/tags/python/" style="font-size: 12px; color: #ccc">python</a> <a href="/tags/redis/" style="font-size: 21px; color: #6f6f6f">redis</a> <a href="/tags/前端/" style="font-size: 12px; color: #ccc">前端</a> <a href="/tags/学习/" style="font-size: 12px; color: #ccc">学习</a> <a href="/tags/思考/" style="font-size: 12px; color: #ccc">思考</a> <a href="/tags/故障排查/" style="font-size: 21px; color: #6f6f6f">故障排查</a> <a href="/tags/方案讨论/" style="font-size: 12px; color: #ccc">方案讨论</a> <a href="/tags/望远镜/" style="font-size: 12px; color: #ccc">望远镜</a> <a href="/tags/留坑/" style="font-size: 12px; color: #ccc">留坑</a> <a href="/tags/算法/" style="font-size: 12px; color: #ccc">算法</a> <a href="/tags/软件设计/" style="font-size: 12px; color: #ccc">软件设计</a>
             </div>
           </div>
         
@@ -371,7 +371,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -393,7 +393,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -597,6 +597,28 @@
 
 
 
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '4tFueWqAqISWdoJCSRebdTfP-gzGzoHsz',
+        appKey: '5wbeKcDdrMfbmbRWr45sTlsp',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
 
 
 
