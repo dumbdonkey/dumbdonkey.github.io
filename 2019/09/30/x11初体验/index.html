@@ -75,18 +75,18 @@
 
 
 
-<meta name="description" content="站在宇宙的尽头,穿越浩渺时空,俯视人生、对待生命!">
+<meta name="description" content="TBD">
 <meta name="keywords" content="码农 蓝星">
 <meta property="og:type" content="website">
-<meta property="og:title" content="标签">
-<meta property="og:url" content="https://dumbdonkey.github.io/tags/index.html">
+<meta property="og:title" content="蓝星码农生存日志">
+<meta property="og:url" content="https://dumbdonkey.github.io/about/index.html">
 <meta property="og:site_name" content="蓝星码农生存日志">
-<meta property="og:description" content="站在宇宙的尽头,穿越浩渺时空,俯视人生、对待生命!">
+<meta property="og:description" content="TBD">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-14T06:40:11.000Z">
+<meta property="og:updated_time" content="2019-09-08T04:42:26.601Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="标签">
-<meta name="twitter:description" content="站在宇宙的尽头,穿越浩渺时空,俯视人生、对待生命!">
+<meta name="twitter:title" content="蓝星码农生存日志">
+<meta name="twitter:description" content="TBD">
 
 
 
@@ -118,7 +118,7 @@
 
 
 
-  <link rel="canonical" href="https://dumbdonkey.github.io/tags/">
+  <link rel="canonical" href="https://dumbdonkey.github.io/about/">
 
 
 
@@ -383,24 +383,25 @@
 <p>简而言之,就是一套定义了gui操作的交互协议,分server与client两部分.</p>
 <p>server与client可以部署在不同的机器上，通过X protocal进行交互.</p>
 <p>client通过协议告诉server应该绘制什么,server会将用户的响应回传给client</p>
-<h2 id="1-安装XQuartz"><a href="#1-安装XQuartz" class="headerlink" title="1. 安装XQuartz"></a>1. 安装XQuartz</h2><h2 id="2-启动XQuartz"><a href="#2-启动XQuartz" class="headerlink" title="2. 启动XQuartz"></a>2. 启动XQuartz</h2><h2 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h2><h3 id="使用ssh服务转发"><a href="#使用ssh服务转发" class="headerlink" title="使用ssh服务转发"></a>使用ssh服务转发</h3><ul>
-<li><p>为什么要使用ssh转发?</p>
-<p>  使用ssh转发可以对流量进行加密</p>
-</li>
-</ul>
+<h2 id="1-安装XQuartz"><a href="#1-安装XQuartz" class="headerlink" title="1. 安装XQuartz"></a>1. 安装XQuartz</h2><h2 id="2-启动XQuartz"><a href="#2-启动XQuartz" class="headerlink" title="2. 启动XQuartz"></a>2. 启动XQuartz</h2><h2 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h2><h3 id="使用ssh服务转发"><a href="#使用ssh服务转发" class="headerlink" title="使用ssh服务转发"></a>使用ssh服务转发</h3><p>为什么要使用ssh转发?</p>
+<p>使用ssh转发可以对流量进行加密</p>
 <p>由于使用了ssh转发,使用过程中需要引入额外的配置</p>
-<ol>
-<li><p>display server端(ssh client端）<br> export DISPLAY变量<br> <img src="./resource/2019-10-08-17-31-22.png" alt><br> 此变量在ssh -X时用于告诉ssh server将x11流量转发到那里.</p>
-</li>
-<li><p>display client端(ssh server端)<br> ssh -X 连接远端服务器<br> ssh服务端会自动根据sshd_config 导出DISPLAY变量<br> <img src="./resource/2019-10-08-19-00-59.png" alt></p>
+<h4 id="display-server端-ssh-client端）"><a href="#display-server端-ssh-client端）" class="headerlink" title="display server端(ssh client端）"></a>display server端(ssh client端）</h4><ol>
+<li>export DISPLAY变量<br> 该变量在ssh -X时用于告诉ssh server将x11流量转发到那里<br> <img src="./resource/2019-10-08-17-31-22.png" alt></li>
+<li>ssh -X 连接服务端</li>
+</ol>
+<h4 id="display-client端-ssh-server端"><a href="#display-client端-ssh-server端" class="headerlink" title="display client端(ssh server端)"></a>display client端(ssh server端)</h4><p>注意: ssh -X 连接远端服务器时,ssh服务端会自动根据sshd_config导DISPLAY变量.此变量与刚才在服务端设置的变量值是不一样的. 一个指向真正的x-server，一个指向proxy-server</p>
+<ol start="3">
+<li><p>启动gui应用</p>
+<p> eg:<br> <img src="./resource/2019-10-08-19-00-59.png" alt></p>
 </li>
 </ol>
 <h3 id="直接将X11流量发送到服务端"><a href="#直接将X11流量发送到服务端" class="headerlink" title="直接将X11流量发送到服务端"></a>直接将X11流量发送到服务端</h3><p>使用ssh进行转发并不是必须的,可以直接将流量发到x-server</p>
-<p><img src="./resource/2019-10-08-19-04-33.png" alt></p>
 <ol>
 <li>Xquart-z需要开启允许网络客户端</li>
 <li>在x-server所在的机器使用xhost允许要连接的客户端</li>
 <li>在x-server通过DISPLAY变量指定x-server服务器</li>
+<li>启动gui应用<br> eg:<br> <img src="./resource/2019-10-08-19-04-33.png" alt></li>
 </ol>
 <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><ol>
 <li><p><a href="https://superuser.com/questions/1217280/why-is-x11-forwarding-so-inefficient" target="_blank" rel="noopener">x11好慢</a></p>
@@ -622,7 +623,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#涉及概念"><span class="nav-number">2.</span> <span class="nav-text">涉及概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-安装XQuartz"><span class="nav-number">3.</span> <span class="nav-text">1. 安装XQuartz</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-启动XQuartz"><span class="nav-number">4.</span> <span class="nav-text">2. 启动XQuartz</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用方式"><span class="nav-number">5.</span> <span class="nav-text">使用方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用ssh服务转发"><span class="nav-number">5.1.</span> <span class="nav-text">使用ssh服务转发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#直接将X11流量发送到服务端"><span class="nav-number">5.2.</span> <span class="nav-text">直接将X11流量发送到服务端</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">6.</span> <span class="nav-text">问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#涉及概念"><span class="nav-number">2.</span> <span class="nav-text">涉及概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-安装XQuartz"><span class="nav-number">3.</span> <span class="nav-text">1. 安装XQuartz</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-启动XQuartz"><span class="nav-number">4.</span> <span class="nav-text">2. 启动XQuartz</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用方式"><span class="nav-number">5.</span> <span class="nav-text">使用方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用ssh服务转发"><span class="nav-number">5.1.</span> <span class="nav-text">使用ssh服务转发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#display-server端-ssh-client端）"><span class="nav-number">5.1.1.</span> <span class="nav-text">display server端(ssh client端）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#display-client端-ssh-server端"><span class="nav-number">5.1.2.</span> <span class="nav-text">display client端(ssh server端)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#直接将X11流量发送到服务端"><span class="nav-number">5.2.</span> <span class="nav-text">直接将X11流量发送到服务端</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">6.</span> <span class="nav-text">问题</span></a></li></ol></div>
             
 
           </div>
