@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.0" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="环境macOS Mojave 10.14 涉及概念X-Window 简而言之,就是一套定义了gui操作的交互协议,分server与client两部分. server与client可以部署在不同的机器上，通过X protocal进行交互. client通过协议告诉server应该绘制什么,server会将用户的响应回传给client 1. 安装XQuartz2. 启动XQuartz使用方式使用ssh">
+<meta name="keywords" content="码农 蓝星">
+<meta property="og:type" content="article">
+<meta property="og:title" content="x11初体验">
+<meta property="og:url" content="https://dumbdonkey.github.io/2019/09/30/x11初体验/index.html">
+<meta property="og:site_name" content="蓝星码农生存日志">
+<meta property="og:description" content="环境macOS Mojave 10.14 涉及概念X-Window 简而言之,就是一套定义了gui操作的交互协议,分server与client两部分. server与client可以部署在不同的机器上，通过X protocal进行交互. client通过协议告诉server应该绘制什么,server会将用户的响应回传给client 1. 安装XQuartz2. 启动XQuartz使用方式使用ssh">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://dumbdonkey.github.io/2019/09/30/x11初体验/resource/2019-10-08-17-31-22.png">
+<meta property="og:image" content="https://dumbdonkey.github.io/2019/09/30/x11初体验/resource/2019-10-08-19-00-59.png">
+<meta property="og:image" content="https://dumbdonkey.github.io/2019/09/30/x11初体验/resource/2019-10-08-19-04-33.png">
+<meta property="og:updated_time" content="2019-10-09T07:36:21.927Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="x11初体验">
+<meta name="twitter:description" content="环境macOS Mojave 10.14 涉及概念X-Window 简而言之,就是一套定义了gui操作的交互协议,分server与client两部分. server与client可以部署在不同的机器上，通过X protocal进行交互. client通过协议告诉server应该绘制什么,server会将用户的响应回传给client 1. 安装XQuartz2. 启动XQuartz使用方式使用ssh">
+<meta name="twitter:image" content="https://dumbdonkey.github.io/2019/09/30/x11初体验/resource/2019-10-08-17-31-22.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.0',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://dumbdonkey.github.io/2019/09/30/x11初体验/">
+
+
+
+
+
+  <title>what_is_docker | 蓝星码农生存日志</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">蓝星码农生存日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dumbdonkey.github.io/2018/11/28/what-is-docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="dumbdonkey">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝星码农生存日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">what_is_docker</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-28T11:50:49+08:00">2018-11-28</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/11/28/what-is-docker/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/11/28/what-is-docker/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>[toc]</p>
+<h2 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h2><p>Docker 使用 Google 公司推出的 Go 语言 进行开发实现，基于 Linux 内核的<br>cgroup，namespace，以及 AUFS 类的 Union FS 等技术，对进程进行封装隔离，<br>属于 操作系统层面的虚拟化技术。</p>
+<p>由于隔离的进程独立于宿主和其它的隔离的进程，因此也称其为容器。最初实现是基于 LXC，从 0.7 版本以后开始去除 LXC，转而使用自行开发的 libcontainer，从 1.11 开始，则进一步演进为使用 runC 和containerd。</p>
+<ul>
+<li>LXC<br>  linux container </li>
+</ul>
+<p>Docker 在容器的基础上，进行了进一步的封装，从文件系统、网络互联到进程隔<br>离等等，极大的简化了容器的创建和维护。使得 Docker 技术比虚拟机技术更为轻<br>便、快捷。</p>
+<p><img src="./resource/2018-11-28-11-58-54.png" alt></p>
+<p><a href="https://medium.com/@nagarwal/understanding-the-docker-internals-7ccb052ce9fe" target="_blank" rel="noopener">Docker利用的一些内核feature</a></p>
+<h3 id="Namespaces-隔离资源"><a href="#Namespaces-隔离资源" class="headerlink" title="Namespaces(隔离资源)"></a>Namespaces(隔离资源)</h3><p>Docker makes use of kernel namespaces to provide the isolated workspace called the container. When you run a container, Docker creates a set of namespaces for that container. These namespaces provide a layer of isolation. Each aspect of a container runs in a separate namespace and its access is limited to that namespace.</p>
+<p>Docker Engine uses the following namespaces on Linux:</p>
+<ul>
+<li>PID namespace for process isolation.</li>
+<li>NET namespace for managing network interfaces.</li>
+<li>IPC namespace for managing access to IPC resources.</li>
+<li>MNT namespace for managing filesystem mount points.</li>
+<li>UTS namespace for isolating kernel and version identifiers.</li>
+</ul>
+<h3 id="Cgroups-限制资源"><a href="#Cgroups-限制资源" class="headerlink" title="Cgroups (限制资源)"></a>Cgroups (限制资源)</h3><p>Docker also makes use of kernel control groups for resource allocation and isolation. A cgroup limits an application to a specific set of resources. </p>
+<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><ul>
+<li>按照 Docker 最佳实践的要求，容器不应该向其存储层内写入任何数据，容器存储<br>层要保持无状态化。所有的文件写入操作，都应该使用 数据卷（Volume）、或者<br>绑定宿主目录，在这些位置的读写会跳过容器存储层，直接对宿主（或网络存储）<br>发生读写，其性能和稳定性更高。</li>
+</ul>
+<ul>
+<li><p>每一个指令都会构建新的一层，docker对层数有限制，避免构建太多层，也需要避免构建太多无用的东西</p>
+<p>  参考:docker_practice.pdf</p>
+</li>
+<li><p>注意构建上下文</p>
+</li>
+</ul>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p>将特定版本的依赖与配置构建到一个镜像中，一方面可以避免传统部署时的版本冲突，另一方面可以加速大规模部署</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="What-is-Dockerfile"><a href="#What-is-Dockerfile" class="headerlink" title="What is Dockerfile"></a>What is Dockerfile</h3><p>用于指示如何构建一个镜像</p>
+<p>Dockerfile第一行必须是From指令,即镜像必须基于一个base image创建</p>
+<h3 id="docker-maven-plugin"><a href="#docker-maven-plugin" class="headerlink" title="docker maven plugin"></a>docker maven plugin</h3><h3 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker compose"></a>docker compose</h3><p>Docker Compose is a tool for defining and running complex applications with Docker. With Compose, you define a multi-container application in a single file, then spin your application up in a single command which does everything that needs to be done to get it running.</p>
+<p>更方便的管理多个container</p>
+<h3 id="swarm-mode"><a href="#swarm-mode" class="headerlink" title="swarm mode"></a>swarm mode</h3><p>“Dockerized” cluster called a swarm</p>
+<p>类似于集群模式，有load balance的能力</p>
+<p>A swarm is a group of machines that are running Docker and joined into a cluster. After that has happened, you continue to run the Docker commands you’re used to, but now they are executed on a cluster by a swarm manager. The machines in a swarm can be physical or virtual. After joining a swarm, they are referred to as nodes.</p>
+<ul>
+<li><p>启用swarm模式</p>
+<p>  docker swarm init</p>
+</li>
+<li><p>部署服务</p>
+<p>  docker stack deploy</p>
+</li>
+</ul>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><ul>
+<li><p>镜像发布</p>
+<ul>
+<li>通过仓库<br>  docker push</li>
+<li>通过磁盘方式<br>  docker save # Save one or more images to a tar archive<br>  docker export # Export a container’s filesystem as a tar archive</li>
+</ul>
+</li>
+<li><p>docker build -t ${tag} .</p>
+</li>
+<li><p>docker image ls</p>
+</li>
+<li><p>docker container run -it</p>
+<p>  -i 交互模式运行<br>  -t 分配一个伪终端给当前process</p>
+</li>
+<li><p>docker commit</p>
+</li>
+<li><p>docker exec [OPTIONS] CONTAINER COMMAND [ARG…]</p>
+<p>  Run a command in a running container</p>
+</li>
+<li><p>docker run [OPTIONS] IMAGE [COMMAND] [ARG…]</p>
+<p>  Run a command in a new container</p>
+</li>
+<li><p>docker run –name docker-zk –restart always -p 2181:2181 -d zookeeper:3.4</p>
+<p>  docker 端口映射</p>
+</li>
+<li><p>docker logs</p>
+<p>  查看container的stdout和stderr</p>
+</li>
+</ul>
+<h2 id="一些重要的点"><a href="#一些重要的点" class="headerlink" title="一些重要的点"></a>一些重要的点</h2><h3 id="docker执行用户"><a href="#docker执行用户" class="headerlink" title="docker执行用户"></a>docker执行用户</h3><p>Without any other option provided, processes in containers will execute as root (unless a different uid was supplied in the Dockerfile). </p>
+<p><a href="https://medium.com/@mccode/understanding-how-uid-and-gid-work-in-docker-containers-c37a01d01cf" target="_blank" rel="noopener">https://medium.com/@mccode/understanding-how-uid-and-gid-work-in-docker-containers-c37a01d01cf</a></p>
+<p>container 以 A用户执行</p>
+<p>以root用户连接container执行操作</p>
+<p>docker exec -it –user root <container id> /bin/bash</container></p>
+<h3 id="storage-drivers"><a href="#storage-drivers" class="headerlink" title="storage drivers"></a>storage drivers</h3><p>The storage driver controls how images and containers are stored and managed on your Docker host.</p>
+<h3 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h3><ul>
+<li><p>volumes</p>
+<p>  Volumes are stored in a part of the host filesystem which is managed by Docker (/var/lib/docker/volumes/ on Linux). Non-Docker processes should not modify this part of the filesystem. <strong>Volumes are the best way to persist data in Docker.</strong></p>
+<p>  volume相当于做了一层抽象,volume的实现可以是多种多样的，比如基于网络的</p>
+</li>
+<li><p>bind mounts</p>
+<p>  Bind mounts may be stored anywhere on the host system. They may even be important system files or directories. Non-Docker processes on the Docker host or a Docker container can modify them at any time.</p>
+<p>  注意:<br>  Bind mounts allow access to sensitive files,bind必须使用绝对路径，相对路径会被当做volume name进行解析的</p>
+<p>  <img src="resource/2018-12-11-15-24-09.png" alt></p>
+</li>
+<li><p>diff</p>
+<ol>
+<li><p>Bind mounts have been around since the early days of Docker. </p>
+</li>
+<li><p>Bind mounts have limited functionality compared to volumes. </p>
+</li>
+<li><p>When you use a bind mount, a file or directory on the host machine is mounted into a container. The file or directory is referenced by its full or relative path on the host machine. </p>
+</li>
+<li><p>By contrast, when you use a volume, a new directory is created within Docker’s storage directory on the host machine, and Docker manages that directory’s contents.</p>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="service"><a href="#service" class="headerlink" title="service"></a>service</h3><p>A service is a group of containers of the same image:tag. </p>
+<p>Services make it simple to scale your application. With Docker Cloud, you simply drag a slider to change the number of containers in a service.</p>
+<h3 id="docker特权模式"><a href="#docker特权模式" class="headerlink" title="docker特权模式"></a>docker特权模式</h3><p><a href="https://docs.docker.com/engine/reference/run/" target="_blank" rel="noopener">https://docs.docker.com/engine/reference/run/</a></p>
+<p>By default, Docker containers are “unprivileged” and cannot, for example, run a Docker daemon inside a Docker container. This is because by default a container is not allowed to access any devices, but a “privileged” container is given access to all devices (see the documentation on cgroups devices).</p>
+<p>默认情况下有些命令是无法执行的，比如strace</p>
+<h2 id="周边组件与服务"><a href="#周边组件与服务" class="headerlink" title="周边组件与服务"></a>周边组件与服务</h2><p><a href="http://alexander.holbreich.org/docker-components-explained/" target="_blank" rel="noopener">http://alexander.holbreich.org/docker-components-explained/</a></p>
+<p>从 Docker 1.11 之后，Docker Daemon 被分成了多个模块以适应 OCI 标准。拆分之后，结构分成了以下几个部分。</p>
+<p><img src="./resource/2019-07-23-18-00-53.png" alt></p>
+<p>其中，containerd 独立负责容器运行时和生命周期（如创建、启动、停止、中止、信号处理、删除等），其他一些如镜像构建、卷管理、日志等由 Docker Daemon 的其他模块处理。</p>
+<h3 id="dockerd-docker-dameon"><a href="#dockerd-docker-dameon" class="headerlink" title="dockerd (docker dameon)"></a>dockerd (docker dameon)</h3><p>和一般的 CS 架构系统一样，守护进程负责和 Docker client 交互，并管理 Docker 镜像、容器。</p>
+<p>dockerd is the persistent process that manages containers. Docker uses different binaries for the daemon and client. To run the daemon you type dockerd.</p>
+<p>dockerd可以监听socket，来执行用户通过网络发起的docker engine api(比如执行个命令什么的)</p>
+<p><img src="./resource/2019-07-23-17-56-47.png" alt></p>
+<h3 id="containerd-and-docker-containerd"><a href="#containerd-and-docker-containerd" class="headerlink" title="containerd and docker-containerd"></a>containerd and docker-containerd</h3><p>containerd是容器技术标准化之后的产物，为了能够兼容OCI 标准，将容器运行时及其管理功能从 Docker Daemon 剥离。理论上，即使不运行 dockerd，也能够直接通过 containerd 来管理容器。（当然，containerd 本身也只是一个守护进程，容器的实际运行时由后面介绍的 runC 控制。）</p>
+<h3 id="docker-containerd-shim"><a href="#docker-containerd-shim" class="headerlink" title="docker-containerd-shim"></a>docker-containerd-shim</h3><h3 id="runc"><a href="#runc" class="headerlink" title="runc"></a>runc</h3><p>RunC</p>
+<p>OCI 定义了容器运行时标准，runC 是 Docker 按照开放容器格式标准（OCF, Open Container Format）制定的一种具体实现。</p>
+<p>containerd is available as a daemon for Linux and Windows. It manages the complete container lifecycle of its host system, from image transfer and storage to container execution and supervision to low-level storage to network attachments and beyond.</p>
+<h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><ol>
+<li><p>top和free看到是物理机的信息还是container的信息</p>
+<p> 受限于目前free和top的实现方式，查看到的是物理机的信息.</p>
+<p> 可以通过docker stats查看到容器的使用信息</p>
+</li>
+<li><p>container中经常缺少各种常用命令，比如wget，tar等等，除了在容器中进行安装外，还有其他方法吗?</p>
+<p> 将宿主机包含这些命令的目录通过-v映射到容器中也行.</p>
+</li>
+<li><p>这些诡异的docker怎么来的?</p>
+<p> <img src="./resource/2019-07-25-19-45-01.png" alt></p>
+<p> 启动docker时如果不指定名称，系统将随机分配一个</p>
+</li>
+<li><p>container 运行时的数据写到哪了，如何查看？</p>
+<p> 默认情况下，container运行时会创建一个writable container layer</p>
+</li>
+<li><p>docker exec vs docker container exec</p>
+<p> docker exec 可以看做别名，可能会deprecated</p>
+</li>
+<li><p>difference between -v and -mount</p>
+<p> <a href="https://docs.docker.com/storage/bind-mounts/#choosing-the--v-or---mount-flag" target="_blank" rel="noopener">https://docs.docker.com/storage/bind-mounts/#choosing-the--v-or---mount-flag</a></p>
+<p> Docker 17.06 版本后没有区别，只是mount的参数更加显性化，利于理解</p>
+<p> -v选项使用</p>
+<pre><code>-v hostpath:containerpath:options</code></pre><p> -mount选项使用</p>
+<pre><code>--mount type=bind,source=&quot;$(pwd)&quot;/target,target=/app </code></pre></li>
+<li><p>查看已经stopped的container</p>
+<p> docker ps -a</p>
+</li>
+<li><p>what is docker tag?</p>
+<p> image构建出来后，默认系统会生成一个id，为了便于使用，可以分配一个tag</p>
+</li>
+</ol>
+<ol start="9">
+<li><p>将本地文件绑定到工作目录</p>
+<p> <img src="resource/2018-12-11-16-24-56.png" alt></p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>谢绝打赏，如果您非要，那下不为例哦 😄!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechat.png" alt="dumbdonkey 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="dumbdonkey 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/容器/" rel="tag"># 容器</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/22/方法or事件/" rel="next" title="方法or事件">
+                <i class="fa fa-chevron-left"></i> 方法or事件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/14/sso/" rel="prev" title="单点登陆">
+                单点登陆 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="dumbdonkey">
+            
+              <p class="site-author-name" itemprop="name">dumbdonkey</p>
+              <p class="site-description motion-element" itemprop="description">站在宇宙的尽头,穿越浩渺时空,俯视人生、对待生命!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/dumbdonkey" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zcauniverse@@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#docker"><span class="nav-number">1.</span> <span class="nav-text">docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Namespaces-隔离资源"><span class="nav-number">1.1.</span> <span class="nav-text">Namespaces(隔离资源)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cgroups-限制资源"><span class="nav-number">1.2.</span> <span class="nav-text">Cgroups (限制资源)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最佳实践"><span class="nav-number">2.</span> <span class="nav-text">最佳实践</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用场景"><span class="nav-number">3.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">4.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#What-is-Dockerfile"><span class="nav-number">4.1.</span> <span class="nav-text">What is Dockerfile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-maven-plugin"><span class="nav-number">4.2.</span> <span class="nav-text">docker maven plugin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-compose"><span class="nav-number">4.3.</span> <span class="nav-text">docker compose</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#swarm-mode"><span class="nav-number">4.4.</span> <span class="nav-text">swarm mode</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用命令"><span class="nav-number">5.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些重要的点"><span class="nav-number">6.</span> <span class="nav-text">一些重要的点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#docker执行用户"><span class="nav-number">6.1.</span> <span class="nav-text">docker执行用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#storage-drivers"><span class="nav-number">6.2.</span> <span class="nav-text">storage drivers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据存储"><span class="nav-number">6.3.</span> <span class="nav-text">数据存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#service"><span class="nav-number">6.4.</span> <span class="nav-text">service</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker特权模式"><span class="nav-number">6.5.</span> <span class="nav-text">docker特权模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#周边组件与服务"><span class="nav-number">7.</span> <span class="nav-text">周边组件与服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dockerd-docker-dameon"><span class="nav-number">7.1.</span> <span class="nav-text">dockerd (docker dameon)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#containerd-and-docker-containerd"><span class="nav-number">7.2.</span> <span class="nav-text">containerd and docker-containerd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-containerd-shim"><span class="nav-number">7.3.</span> <span class="nav-text">docker-containerd-shim</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#runc"><span class="nav-number">7.4.</span> <span class="nav-text">runc</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FAQ"><span class="nav-number">8.</span> <span class="nav-text">FAQ</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">dumbdonkey</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '4tFueWqAqISWdoJCSRebdTfP-gzGzoHsz',
+        appKey: '5wbeKcDdrMfbmbRWr45sTlsp',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
