@@ -78,14 +78,14 @@
 <meta name="description" content="站在宇宙的尽头,穿越浩渺时空,俯视人生、对待生命!">
 <meta name="keywords" content="码农 蓝星">
 <meta property="og:type" content="website">
-<meta property="og:title" content="标签">
-<meta property="og:url" content="https://dumbdonkey.github.io/tags/index.html">
+<meta property="og:title" content="分类">
+<meta property="og:url" content="https://dumbdonkey.github.io/categories/index.html">
 <meta property="og:site_name" content="蓝星码农生存日志">
 <meta property="og:description" content="站在宇宙的尽头,穿越浩渺时空,俯视人生、对待生命!">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-14T06:40:11.000Z">
+<meta property="og:updated_time" content="2019-09-08T05:05:09.408Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="标签">
+<meta name="twitter:title" content="分类">
 <meta name="twitter:description" content="站在宇宙的尽头,穿越浩渺时空,俯视人生、对待生命!">
 
 
@@ -118,7 +118,7 @@
 
 
 
-  <link rel="canonical" href="https://dumbdonkey.github.io/tags/">
+  <link rel="canonical" href="https://dumbdonkey.github.io/categories/">
 
 
 
@@ -423,23 +423,6 @@
 <p>  docker stack deploy</p>
 </li>
 </ul>
-<h3 id="网络模式"><a href="#网络模式" class="headerlink" title="网络模式"></a>网络模式</h3><ul>
-<li><p>bridge(默认的网络模式)</p>
-<p>  docker会默认创建一个名为bridge的桥架网络.用户也可以通过docker network create自行创建一个新的</p>
-<p>  桥接网络用于同一个主机上不同的container之间的通讯</p>
-</li>
-<li><p>host</p>
-<p>  与宿主机共享IP</p>
-</li>
-<li><p>overlay</p>
-</li>
-<li><p>macvlan</p>
-</li>
-<li><p>none</p>
-</li>
-<li><p>network plugin</p>
-</li>
-</ul>
 <h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><ul>
 <li><p>镜像发布</p>
 <ul>
@@ -529,9 +512,6 @@
 </li>
 <li><p>container 运行时的数据写到哪了，如何查看？</p>
 <p> 默认情况下，container运行时会创建一个writable container layer</p>
-<p> stdout,stderr可以通过docker logs查看</p>
-<p> 其他文件，比如日志文件,可以如此<a href="https://stackoverflow.com/questions/20813486/exploring-docker-containers-file-system" target="_blank" rel="noopener">操作</a></p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /proc/$container-pid/root (仅linux有效）</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>docker exec vs docker container exec</p>
 <p> docker exec 可以看做别名，可能会deprecated</p>
@@ -551,13 +531,7 @@
 </ol>
 <ol start="9">
 <li><p>将本地文件绑定到工作目录</p>
-<p> <img src="./resource/2018-12-11-16-24-56.png" alt></p>
-</li>
-<li><p>container的stdout和stderr存在哪里?</p>
-<p>默认情况下docker使用<a href="https://docs.docker.com/config/containers/logging/json-file/" target="_blank" rel="noopener">JSON File logging driver</a><br>来存储stdout和stderr</p>
-<p>可以使用docker inspect可以查看到日志路径<br><img src="./resource/2019-10-09-19-39-35.png" alt></p>
-</li>
-<li><p><a href="https://andrewaadland.me/2018-11-03-change-logging-driver-with-centoss-docker-package/" target="_blank" rel="noopener">centos默认的log-driver不是json-file</a></p>
+<p> <img src="resource/2018-12-11-16-24-56.png" alt></p>
 </li>
 </ol>
 
@@ -715,7 +689,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -737,7 +711,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -786,7 +760,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#docker"><span class="nav-number">1.</span> <span class="nav-text">docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Namespaces-隔离资源"><span class="nav-number">1.1.</span> <span class="nav-text">Namespaces(隔离资源)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cgroups-限制资源"><span class="nav-number">1.2.</span> <span class="nav-text">Cgroups (限制资源)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最佳实践"><span class="nav-number">2.</span> <span class="nav-text">最佳实践</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用场景"><span class="nav-number">3.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">4.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#What-is-Dockerfile"><span class="nav-number">4.1.</span> <span class="nav-text">What is Dockerfile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-maven-plugin"><span class="nav-number">4.2.</span> <span class="nav-text">docker maven plugin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-compose"><span class="nav-number">4.3.</span> <span class="nav-text">docker compose</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#swarm-mode"><span class="nav-number">4.4.</span> <span class="nav-text">swarm mode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络模式"><span class="nav-number">4.5.</span> <span class="nav-text">网络模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用命令"><span class="nav-number">5.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些重要的点"><span class="nav-number">6.</span> <span class="nav-text">一些重要的点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#docker执行用户"><span class="nav-number">6.1.</span> <span class="nav-text">docker执行用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#storage-drivers"><span class="nav-number">6.2.</span> <span class="nav-text">storage drivers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据存储"><span class="nav-number">6.3.</span> <span class="nav-text">数据存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#service"><span class="nav-number">6.4.</span> <span class="nav-text">service</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker特权模式"><span class="nav-number">6.5.</span> <span class="nav-text">docker特权模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#周边组件与服务"><span class="nav-number">7.</span> <span class="nav-text">周边组件与服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dockerd-docker-dameon"><span class="nav-number">7.1.</span> <span class="nav-text">dockerd (docker dameon)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#containerd-and-docker-containerd"><span class="nav-number">7.2.</span> <span class="nav-text">containerd and docker-containerd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-containerd-shim"><span class="nav-number">7.3.</span> <span class="nav-text">docker-containerd-shim</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#runc"><span class="nav-number">7.4.</span> <span class="nav-text">runc</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FAQ"><span class="nav-number">8.</span> <span class="nav-text">FAQ</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#docker"><span class="nav-number">1.</span> <span class="nav-text">docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Namespaces-隔离资源"><span class="nav-number">1.1.</span> <span class="nav-text">Namespaces(隔离资源)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cgroups-限制资源"><span class="nav-number">1.2.</span> <span class="nav-text">Cgroups (限制资源)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最佳实践"><span class="nav-number">2.</span> <span class="nav-text">最佳实践</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用场景"><span class="nav-number">3.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">4.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#What-is-Dockerfile"><span class="nav-number">4.1.</span> <span class="nav-text">What is Dockerfile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-maven-plugin"><span class="nav-number">4.2.</span> <span class="nav-text">docker maven plugin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-compose"><span class="nav-number">4.3.</span> <span class="nav-text">docker compose</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#swarm-mode"><span class="nav-number">4.4.</span> <span class="nav-text">swarm mode</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用命令"><span class="nav-number">5.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些重要的点"><span class="nav-number">6.</span> <span class="nav-text">一些重要的点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#docker执行用户"><span class="nav-number">6.1.</span> <span class="nav-text">docker执行用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#storage-drivers"><span class="nav-number">6.2.</span> <span class="nav-text">storage drivers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据存储"><span class="nav-number">6.3.</span> <span class="nav-text">数据存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#service"><span class="nav-number">6.4.</span> <span class="nav-text">service</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker特权模式"><span class="nav-number">6.5.</span> <span class="nav-text">docker特权模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#周边组件与服务"><span class="nav-number">7.</span> <span class="nav-text">周边组件与服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dockerd-docker-dameon"><span class="nav-number">7.1.</span> <span class="nav-text">dockerd (docker dameon)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#containerd-and-docker-containerd"><span class="nav-number">7.2.</span> <span class="nav-text">containerd and docker-containerd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-containerd-shim"><span class="nav-number">7.3.</span> <span class="nav-text">docker-containerd-shim</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#runc"><span class="nav-number">7.4.</span> <span class="nav-text">runc</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FAQ"><span class="nav-number">8.</span> <span class="nav-text">FAQ</span></a></li></ol></div>
             
 
           </div>
