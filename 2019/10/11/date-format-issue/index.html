@@ -124,7 +124,7 @@
 
 
 
-  <title>lvs配置问题导致域名解析失败 | 蓝星码农生存日志</title>
+  <title>date_format_issue | 蓝星码农生存日志</title>
   
 
 
@@ -303,7 +303,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://dumbdonkey.github.io/2018/10/09/lvs配置问题导致域名解析失败/">
+    <link itemprop="mainEntityOfPage" href="https://dumbdonkey.github.io/2019/10/11/date-format-issue/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="dumbdonkey">
@@ -320,7 +320,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">lvs配置问题导致域名解析失败</h1>
+          <h1 class="post-title" itemprop="name headline">date_format_issue</h1>
         
 
         <div class="post-meta">
@@ -332,7 +332,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-09T21:15:24+08:00">2018-10-09</time>
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-11T20:10:23+08:00">2019-10-11</time>
             
 
             
@@ -340,28 +340,6 @@
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/故障排查/" itemprop="url" rel="index">
-                    <span itemprop="name">故障排查</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -371,8 +349,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/10/09/lvs配置问题导致域名解析失败/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/09/lvs配置问题导致域名解析失败/" itemprop="commentCount"></span>
+                <a href="/2019/10/11/date-format-issue/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/10/11/date-format-issue/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -400,35 +378,27 @@
       
 
       
-        <h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>用户的服务A依赖一个第三方服务B(服务A与服务B通过http域名进行交互),服务部署在C1,C2两个机房</p>
-<p>C1机房的服务是可以正常启动的。</p>
-<p>C2机房的服务启动后会报错，错误日志显示连接了一个错误的服务域名</p>
-<h2 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h2><h3 id="服务B中有如下一段问题代码"><a href="#服务B中有如下一段问题代码" class="headerlink" title="服务B中有如下一段问题代码"></a>服务B中有如下一段问题代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public boolean isProduct() &#123;</span><br><span class="line"></span><br><span class="line">        return InetAddress.getByName(&quot;xxx.a.b.c&quot;).isReachable(3000);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h2 id="问题代码"><a href="#问题代码" class="headerlink" title="问题代码"></a>问题代码</h2><ul>
+<li><p>code</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">@Test</span><br><span class="line">public void t1() &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    //DD为当前日期在一年中的天数,指定了最少为2位，但是由于当前的天数已经超过100(即278)会以3位进行显示</span><br><span class="line">    System.out.println(DateUtils.formatDateTime(new Date(1570242192000l), &quot;yyyyMMDDHHmmss&quot;));</span><br><span class="line"></span><br><span class="line">    //正常-使用3个D来指名天数和小时之间的拆分位置</span><br><span class="line">    System.out.println(DateUtils.parseTimeInStr(&quot;201910278102312&quot;, &quot;yyyyMMDDDHHmmss&quot;));</span><br><span class="line"></span><br><span class="line">    //错误-只使用2个D的时候,天数和小时之间会被错误的拆分</span><br><span class="line">    System.out.println(DateUtils.parseTimeInStr(&quot;201910278102312&quot;, &quot;yyyyMMDDHHmmss&quot;));</span><br><span class="line"></span><br><span class="line">    //正常- 如果我们日期字符串中本来就有分隔符，我们在format pattern就不需要刻意指定相同个数的字符拉.</span><br><span class="line">    System.out.println(DateUtils.parseTimeInStr(&quot;2019-10-278 10:23:12&quot;, &quot;y-M-D H:m:s&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>output</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">201910278102312</span><br><span class="line">Sat Oct 05 10:23:12 CST 2019</span><br><span class="line">Wed Jan 30 09:07:12 CST 2019</span><br><span class="line">Sat Oct 05 10:23:12 CST 2019</span><br></pre></td></tr></table></figure>
 
-<p>B服务会根据isProduct的返回值去连接不同的域名，即如果isProduct返回false就会连接测试环境的域名。</p>
-<p>由于线上线下配置不同，B服务会返回错误的信息，进而导致服务A出错退出.</p>
-<h2 id="原因跟踪-amp-分析"><a href="#原因跟踪-amp-分析" class="headerlink" title="原因跟踪&amp;分析"></a>原因跟踪&amp;分析</h2><p>使用strace跟踪isReachable的底层表现</p>
-<h3 id="C1机房下的表现"><a href="#C1机房下的表现" class="headerlink" title="C1机房下的表现"></a>C1机房下的表现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[pid 122321] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 3</span><br><span class="line">[pid 122321] connect(3, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 122321] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 3</span><br><span class="line">[pid 122321] connect(3, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 122321] --- SIGSEGV &#123;si_signo=SIGSEGV, si_code=SEGV_MAPERR, si_addr=0&#125; ---</span><br><span class="line">[pid 122321] socket(PF_INET6, SOCK_STREAM, IPPROTO_IP) = -1 EAFNOSUPPORT (Address family not supported by protocol)</span><br><span class="line">[pid 122321] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 4</span><br><span class="line">[pid 122321] connect(4, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 122321] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 4</span><br><span class="line">[pid 122321] connect(4, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 122321] socket(PF_INET, SOCK_DGRAM|SOCK_NONBLOCK, IPPROTO_IP) = 4</span><br><span class="line">[pid 122321] connect(4, &#123;sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr(&quot;172.16.152.252&quot;)&#125;, 16) = 0 #172.16.152.252为C1机房的vip</span><br><span class="line">[pid 122321] poll([&#123;fd=4, events=POLLOUT&#125;], 1, 0) = 1 ([&#123;fd=4, revents=POLLOUT&#125;])</span><br><span class="line">[pid 122321] sendto(4, &quot;\342T\1\0\0\1\0\0\0\0\0\0\5fiona\2rc\00251\2nb\0\0\1\0\1&quot;, 32, MSG_NOSIGNAL, NULL, 0) = 32</span><br><span class="line">[pid 122321] poll([&#123;fd=4, events=POLLIN&#125;], 1, 2000) = 1 ([&#123;fd=4, revents=POLLIN&#125;])</span><br><span class="line">[pid 122321] recvfrom(4, &quot;\342T\205\200\0\1\0\2\0\f\0\f\5fiona\2rc\00251\2nb\0\0\1\0\1&quot;..., 1024, 0, &#123;sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr(&quot;172.16.152.252&quot;)&#125;, [16]) = 482 </span><br><span class="line">[pid 122321] socket(PF_INET, SOCK_RAW, IPPROTO_ICMP) = -1 EPERM (Operation not permitted)</span><br><span class="line">[pid 122321] socket(PF_INET, SOCK_STREAM, IPPROTO_IP) = 4</span><br><span class="line">[pid 122321] connect(4, &#123;sa_family=AF_INET, sin_port=htons(7), sin_addr=inet_addr(&quot;172.16.152.49&quot;)&#125;, 16) = -1 EINPROGRESS (Operation now in progress)</span><br><span class="line">[pid 122321] poll([&#123;fd=4, events=POLLOUT&#125;], 1, 3000) = 1 ([&#123;fd=4, revents=POLLOUT|POLLERR|POLLHUP&#125;])</span><br><span class="line">[pid 122321] getsockopt(4, SOL_SOCKET, SO_ERROR, [111], [4]) = 0 # 正常可联通</span><br><span class="line">true</span><br><span class="line">+++ exited with 0 +++</span><br></pre></td></tr></table></figure>
-
-<h3 id="C2机房下的表现"><a href="#C2机房下的表现" class="headerlink" title="C2机房下的表现"></a>C2机房下的表现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">strace  -e trace=network,poll -f java A</span><br><span class="line">Process 27354 attached</span><br><span class="line">[pid 27354] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 3</span><br><span class="line">[pid 27354] connect(3, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 27354] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 3</span><br><span class="line">[pid 27354] connect(3, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 27354] --- SIGSEGV &#123;si_signo=SIGSEGV, si_code=SEGV_MAPERR, si_addr=0&#125; ---</span><br><span class="line">[pid 27354] socket(PF_INET6, SOCK_STREAM, IPPROTO_IP) = -1 EAFNOSUPPORT (Address family not supported by protocol)</span><br><span class="line">[pid 27354] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 4</span><br><span class="line">[pid 27354] connect(4, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 27354] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 4</span><br><span class="line">[pid 27354] connect(4, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 27354] socket(PF_INET, SOCK_DGRAM|SOCK_NONBLOCK, IPPROTO_IP) = 4</span><br><span class="line">[pid 27354] connect(4, &#123;sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr(&quot;172.16.208.253&quot;)&#125;, 16) = 0 #172.16.208.253为C2机房的VIP</span><br><span class="line">[pid 27354] poll([&#123;fd=4, events=POLLOUT&#125;], 1, 0) = 1 ([&#123;fd=4, revents=POLLOUT&#125;])</span><br><span class="line">[pid 27354] sendto(4, &quot;\274\4\1\0\0\1\0\0\0\0\0\0\5fiona\2rc\00251\2nb\0\0\1\0\1&quot;, 32, MSG_NOSIGNAL, NULL, 0) = 32</span><br><span class="line">[pid 27354] poll([&#123;fd=4, events=POLLIN&#125;], 1, 2000) = 1 ([&#123;fd=4, revents=POLLIN&#125;])</span><br><span class="line">[pid 27354] recvfrom(4, &quot;\274\4\205\200\0\1\0\2\0\f\0\f\5fiona\2rc\00251\2nb\0\0\1\0\1&quot;..., 1024, 0, &#123;sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr(&quot;172.16.208.253&quot;)&#125;, [16]) = 482</span><br><span class="line">[pid 27354] socket(PF_INET, SOCK_RAW, IPPROTO_ICMP) = -1 EPERM (Operation not permitted)</span><br><span class="line">[pid 27354] socket(PF_INET, SOCK_STREAM, IPPROTO_IP) = 4</span><br><span class="line">[pid 27354] connect(4, &#123;sa_family=AF_INET, sin_port=htons(7), sin_addr=inet_addr(&quot;172.16.251.2&quot;)&#125;, 16) = -1 EINPROGRESS (Operation now in progress)</span><br><span class="line">[pid 27354] poll([&#123;fd=4, events=POLLOUT&#125;], 1, 3000) = 0 (Timeout) # 无法联通，等待超时</span><br><span class="line">false</span><br><span class="line">+++ exited with 0 +++</span><br></pre></td></tr></table></figure>
-
-<h3 id="结果分析"><a href="#结果分析" class="headerlink" title="结果分析"></a>结果分析</h3><p>从两个机房的跟踪结果可知，C1机房给出了明确的拒绝响应(能拒绝说明网络是可达的), 而C2机房却在等待3秒后超时了.</p>
-<p>咨询运维两个机房的配置是否存在差异，答复如下:</p>
-<p><img src="./resource/2019-09-09-22-23-59.png" alt></p>
-<p>不过问题是由lvs的模式差异造成还是配置造成，不得而知.</p>
-<h3 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h3><p>由于运维不希望在LVS层做改动,所以问题由用户升级B服务版本解决.</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>有些jdk的接口实现还是挺依赖环境的,底层环境稍有变动就会出现问题. 以后还是得注意.</p>
-<h2 id="java的isReachable实现逻辑"><a href="#java的isReachable实现逻辑" class="headerlink" title="java的isReachable实现逻辑"></a>java的isReachable实现逻辑</h2><p>Inet4AddressImpl.c</p>
-<p>Java_java_net_Inet4AddressImpl_isReachable0</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/*</span><br><span class="line">    * Let&apos;s try to create a RAW socket to send ICMP packets</span><br><span class="line">    * This usually requires &quot;root&quot; privileges, so it&apos;s likely to fail.</span><br><span class="line">    */</span><br><span class="line">fd = JVM_Socket(AF_INET, SOCK_RAW, IPPROTO_ICMP);</span><br><span class="line">if (fd != -1) &#123;</span><br><span class="line">    /*</span><br><span class="line">    * It didn&apos;t fail, so we can use ICMP_ECHO requests.</span><br><span class="line">    */</span><br><span class="line">    return ping4(env, fd, &amp;him, timeout, netif, ttl);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">    * Can&apos;t create a raw socket, so let&apos;s try a TCP socket</span><br><span class="line">    */</span><br><span class="line">fd = JVM_Socket(AF_INET, SOCK_STREAM, 0);</span><br><span class="line">if (fd == JVM_IO_ERR) &#123;</span><br><span class="line">    /* note: if you run out of fds, you may not be able to load</span><br><span class="line">        * the exception class, and get a NoClassDefFoundError</span><br><span class="line">        * instead.</span><br><span class="line">        */</span><br><span class="line">    NET_ThrowNew(env, errno, &quot;Can&apos;t create socket&quot;);</span><br><span class="line">    return JNI_FALSE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">SOCK_RAW</span><br><span class="line">sockets provide access to internal network protocols and interfaces.  The</span><br><span class="line">type SOCK_RAW, which is available only to the super-user.</span><br></pre></td></tr></table></figure>
-
-<h2 id="root-账户下的现象"><a href="#root-账户下的现象" class="headerlink" title="root 账户下的现象"></a>root 账户下的现象</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">strace  -x -f -e trace=network java A</span><br><span class="line">Process 17609 attached</span><br><span class="line">[pid 17609] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 3</span><br><span class="line">[pid 17609] connect(3, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 17609] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 3</span><br><span class="line">[pid 17609] connect(3, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 17609] --- SIGSEGV &#123;si_signo=SIGSEGV, si_code=SEGV_MAPERR, si_addr=0&#125; ---</span><br><span class="line">[pid 17609] socket(PF_INET6, SOCK_STREAM, IPPROTO_IP) = -1 EAFNOSUPPORT (Address family not supported by protocol)</span><br><span class="line">[pid 17609] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 4</span><br><span class="line">[pid 17609] connect(4, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 17609] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 4</span><br><span class="line">[pid 17609] connect(4, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 17609] socket(PF_INET, SOCK_DGRAM|SOCK_NONBLOCK, IPPROTO_IP) = 4</span><br><span class="line">[pid 17609] connect(4, &#123;sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr(&quot;172.16.208.253&quot;)&#125;, 16) = 0</span><br><span class="line">[pid 17609] sendto(4, &quot;\xeb\xe5\x01\x00\x00\x01\x00\x00\x00\x00\x00\x00\x05\x66\x69\x6f\x6e\x61\x02\x72\x63\x02\x35\x31\x02\x6e\x62\x00\x00\x01\x00\x01&quot;, 32, MSG_NOSIGNAL, NULL, 0) = 32</span><br><span class="line">[pid 17609] recvfrom(4, &quot;\xeb\xe5\x85\x80\x00\x01\x00\x02\x00\x0c\x00\x0c\x05\x66\x69\x6f\x6e\x61\x02\x72\x63\x02\x35\x31\x02\x6e\x62\x00\x00\x01\x00\x01&quot;..., 1024, 0, &#123;sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr(&quot;172.16.208.253&quot;)&#125;, [16]) = 482</span><br><span class="line">[pid 17609] socket(PF_INET, SOCK_RAW, IPPROTO_ICMP) = 4</span><br><span class="line">[pid 17609] setsockopt(4, SOL_SOCKET, SO_RCVBUF, [61440], 4) = 0</span><br><span class="line">[pid 17609] sendto(4, &quot;\x08\x00\xbc\x66\x44\xc8\x00\x01\x7e\x18\x7e\x5b\x00\x00\x00\x00\xff\x03\x03\x00\x00\x00\x00\x00\x09\x00\x00\x00\x00\x00\x00\x00&quot;..., 52, 0, &#123;sa_family=AF_INET, sin_port=htons(0), sin_addr=inet_addr(&quot;172.16.251.2&quot;)&#125;, 16) = 52  ## 通过icmp包进行检测</span><br><span class="line">[pid 17609] recvfrom(4, &quot;\x45\x00\x00\x48\xa6\x92\x00\x00\x3e\x01\xb1\x9c\xac\x10\xfb\x02\xac\x10\xd1\x62\x00\x00\xc4\x66\x44\xc8\x00\x01\x7e\x18\x7e\x5b&quot;..., 1500, 0, &#123;sa_family=AF_INET, sin_port=htons(0), sin_addr=inet_addr(&quot;172.16.251.2&quot;)&#125;, [16]) = 72</span><br><span class="line">true</span><br><span class="line"></span><br><span class="line">+++ exited with 0 +++</span><br></pre></td></tr></table></figure>
-
-<h2 id="普通账户下的现象"><a href="#普通账户下的现象" class="headerlink" title="普通账户下的现象"></a>普通账户下的现象</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">strace -f -e trace=network,poll java A</span><br><span class="line">Process 18035 attached</span><br><span class="line">[pid 18035] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 3</span><br><span class="line">[pid 18035] connect(3, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 18035] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 3</span><br><span class="line">[pid 18035] connect(3, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 18035] --- SIGSEGV &#123;si_signo=SIGSEGV, si_code=SEGV_MAPERR, si_addr=0&#125; ---</span><br><span class="line">[pid 18035] socket(PF_INET6, SOCK_STREAM, IPPROTO_IP) = -1 EAFNOSUPPORT (Address family not supported by protocol)</span><br><span class="line">[pid 18035] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 4</span><br><span class="line">[pid 18035] connect(4, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 18035] socket(PF_LOCAL, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0) = 4</span><br><span class="line">[pid 18035] connect(4, &#123;sa_family=AF_LOCAL, sun_path=&quot;/var/run/nscd/socket&quot;&#125;, 110) = -1 ENOENT (No such file or directory)</span><br><span class="line">[pid 18035] socket(PF_INET, SOCK_DGRAM|SOCK_NONBLOCK, IPPROTO_IP) = 4</span><br><span class="line">[pid 18035] connect(4, &#123;sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr(&quot;172.16.208.253&quot;)&#125;, 16) = 0</span><br><span class="line">[pid 18035] poll([&#123;fd=4, events=POLLOUT&#125;], 1, 0) = 1 ([&#123;fd=4, revents=POLLOUT&#125;])</span><br><span class="line">[pid 18035] sendto(4, &quot;\20\35\1\0\0\1\0\0\0\0\0\0\5fiona\2rc\00251\2nb\0\0\1\0\1&quot;, 32, MSG_NOSIGNAL, NULL, 0) = 32</span><br><span class="line">[pid 18035] poll([&#123;fd=4, events=POLLIN&#125;], 1, 2000) = 1 ([&#123;fd=4, revents=POLLIN&#125;])</span><br><span class="line">[pid 18035] recvfrom(4, &quot;\20\35\205\200\0\1\0\2\0\f\0\f\5fiona\2rc\00251\2nb\0\0\1\0\1&quot;..., 1024, 0, &#123;sa_family=AF_INET, sin_port=htons(53), sin_addr=inet_addr(&quot;172.16.208.253&quot;)&#125;, [16]) = 482</span><br><span class="line">[pid 18035] socket(PF_INET, SOCK_RAW, IPPROTO_ICMP) = -1 EPERM (Operation not permitted) # 没有创建SOCK_RAW的权限</span><br><span class="line">[pid 18035] socket(PF_INET, SOCK_STREAM, IPPROTO_IP) = 4</span><br><span class="line">[pid 18035] connect(4, &#123;sa_family=AF_INET, sin_port=htons(7), sin_addr=inet_addr(&quot;172.16.251.2&quot;)&#125;, 16) = -1 EINPROGRESS (Operation now in progress) # 连接7号端口</span><br><span class="line">[pid 18035] poll([&#123;fd=4, events=POLLOUT&#125;], 1, 3000) = 0 (Timeout) //等待超时</span><br><span class="line">false</span><br><span class="line"></span><br><span class="line">+++ exited with 0 +++</span><br></pre></td></tr></table></figure>
-
+</li>
+</ul>
+<h2 id="yyyyMMDDHHmmss控制了啥"><a href="#yyyyMMDDHHmmss控制了啥" class="headerlink" title="yyyyMMDDHHmmss控制了啥?"></a>yyyyMMDDHHmmss控制了啥?</h2><p>参见javadoc.</p>
+<p>Pattern letters are usually repeated, as their number determines the exact presentation:</p>
+<ul>
+<li><p>Text</p>
+<p>  For formatting, if the number of pattern letters is 4 or more, the full form is used; otherwise a short or abbreviated form is used if available. For parsing, both forms are accepted, independent of the number of pattern letters.</p>
+</li>
+<li><p>Number</p>
+<p>  For formatting, the number of pattern letters is the minimum number of digits, and shorter numbers are zero-padded to this amount. For parsing, the number of pattern letters is ignored unless it’s needed to separate two adjacent fields.</p>
+</li>
+</ul>
+<p>控制字符的出现的次数决定了数字最少出现的次数，不足则补0。</p>
+<p>当parse的，字符串的次数是可以忽略的，除非需要通过字符个数来拆分两个不同的域.</p>
 
       
     </div>
@@ -473,12 +443,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/java/" rel="tag"># java</a>
-          
-        </div>
-      
 
       
       
@@ -488,8 +452,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/09/redis的执行时间限制/" rel="next" title="redis的执行时间限制">
-                <i class="fa fa-chevron-left"></i> redis的执行时间限制
+              <a href="/2019/10/10/everything-about-vi/" rel="next" title="everything_about_vi">
+                <i class="fa fa-chevron-left"></i> everything_about_vi
               </a>
             
           </div>
@@ -497,10 +461,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/14/vue/" rel="prev" title="vue从入门到精通">
-                vue从入门到精通 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -653,7 +613,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#现象"><span class="nav-number">1.</span> <span class="nav-text">现象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码分析"><span class="nav-number">2.</span> <span class="nav-text">代码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务B中有如下一段问题代码"><span class="nav-number">2.1.</span> <span class="nav-text">服务B中有如下一段问题代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原因跟踪-amp-分析"><span class="nav-number">3.</span> <span class="nav-text">原因跟踪&amp;分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#C1机房下的表现"><span class="nav-number">3.1.</span> <span class="nav-text">C1机房下的表现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C2机房下的表现"><span class="nav-number">3.2.</span> <span class="nav-text">C2机房下的表现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结果分析"><span class="nav-number">3.3.</span> <span class="nav-text">结果分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题解决"><span class="nav-number">3.4.</span> <span class="nav-text">问题解决</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.5.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#java的isReachable实现逻辑"><span class="nav-number">4.</span> <span class="nav-text">java的isReachable实现逻辑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#root-账户下的现象"><span class="nav-number">5.</span> <span class="nav-text">root 账户下的现象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#普通账户下的现象"><span class="nav-number">6.</span> <span class="nav-text">普通账户下的现象</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题代码"><span class="nav-number">1.</span> <span class="nav-text">问题代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#yyyyMMDDHHmmss控制了啥"><span class="nav-number">2.</span> <span class="nav-text">yyyyMMDDHHmmss控制了啥?</span></a></li></ol></div>
             
 
           </div>

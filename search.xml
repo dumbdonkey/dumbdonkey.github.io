@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[date_format_issue]]></title>
+    <url>%2F2019%2F10%2F11%2Fdate-format-issue%2F</url>
+    <content type="text"><![CDATA[问题代码 code 1234567891011121314151617@Testpublic void t1() &#123; //DD为当前日期在一年中的天数,指定了最少为2位，但是由于当前的天数已经超过100(即278)会以3位进行显示 System.out.println(DateUtils.formatDateTime(new Date(1570242192000l), &quot;yyyyMMDDHHmmss&quot;)); //正常-使用3个D来指名天数和小时之间的拆分位置 System.out.println(DateUtils.parseTimeInStr(&quot;201910278102312&quot;, &quot;yyyyMMDDDHHmmss&quot;)); //错误-只使用2个D的时候,天数和小时之间会被错误的拆分 System.out.println(DateUtils.parseTimeInStr(&quot;201910278102312&quot;, &quot;yyyyMMDDHHmmss&quot;)); //正常- 如果我们日期字符串中本来就有分隔符，我们在format pattern就不需要刻意指定相同个数的字符拉. System.out.println(DateUtils.parseTimeInStr(&quot;2019-10-278 10:23:12&quot;, &quot;y-M-D H:m:s&quot;));&#125; output 1234201910278102312Sat Oct 05 10:23:12 CST 2019Wed Jan 30 09:07:12 CST 2019Sat Oct 05 10:23:12 CST 2019 yyyyMMDDHHmmss控制了啥?参见javadoc. Pattern letters are usually repeated, as their number determines the exact presentation: Text For formatting, if the number of pattern letters is 4 or more, the full form is used; otherwise a short or abbreviated form is used if available. For parsing, both forms are accepted, independent of the number of pattern letters. Number For formatting, the number of pattern letters is the minimum number of digits, and shorter numbers are zero-padded to this amount. For parsing, the number of pattern letters is ignored unless it’s needed to separate two adjacent fields. 控制字符的出现的次数决定了数字最少出现的次数，不足则补0。 当parse的，字符串的次数是可以忽略的，除非需要通过字符个数来拆分两个不同的域.]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[everything_about_vi]]></title>
     <url>%2F2019%2F10%2F10%2Feverything-about-vi%2F</url>
     <content type="text"><![CDATA[FAQ vi打开大文件会怎样? 会吃掉你的内存 vi为什么查看utf-8编码的文件会乱码 控制vi显示的有好几个编码设置，具体参见链接中的介绍. 示例中的原因是因为有人在~/.vimrc中添加了如下指令 1set termencoding=gb18030]]></content>
