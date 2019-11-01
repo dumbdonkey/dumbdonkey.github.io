@@ -75,18 +75,18 @@
 
 
 
-<meta name="description" content="TBD">
+<meta name="description" content="站在宇宙的尽头,穿越浩渺时空,俯视人生、对待生命!">
 <meta name="keywords" content="码农 蓝星">
 <meta property="og:type" content="website">
-<meta property="og:title" content="蓝星码农生存日志">
-<meta property="og:url" content="https://dumbdonkey.github.io/about/index.html">
+<meta property="og:title" content="标签">
+<meta property="og:url" content="https://dumbdonkey.github.io/tags/index.html">
 <meta property="og:site_name" content="蓝星码农生存日志">
-<meta property="og:description" content="TBD">
+<meta property="og:description" content="站在宇宙的尽头,穿越浩渺时空,俯视人生、对待生命!">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-08T04:42:26.601Z">
+<meta property="og:updated_time" content="2019-02-14T06:40:11.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="蓝星码农生存日志">
-<meta name="twitter:description" content="TBD">
+<meta name="twitter:title" content="标签">
+<meta name="twitter:description" content="站在宇宙的尽头,穿越浩渺时空,俯视人生、对待生命!">
 
 
 
@@ -118,7 +118,7 @@
 
 
 
-  <link rel="canonical" href="https://dumbdonkey.github.io/about/">
+  <link rel="canonical" href="https://dumbdonkey.github.io/tags/">
 
 
 
@@ -378,31 +378,43 @@
       
 
       
-        <p><img src="resource/2019-06-21-11-43-47.png" alt></p>
-<h1 id="单点登录"><a href="#单点登录" class="headerlink" title="单点登录"></a>单点登录</h1><h2 id="为什么要单点登录"><a href="#为什么要单点登录" class="headerlink" title="为什么要单点登录"></a>为什么要单点登录</h2><p>如果用户访问每个系统时都要登录一遍岂不很麻烦？ 所以就产生单点登录的需求，即用户在同一个浏览器上只需要登录一次(跨浏览器的目前好像没有做到的，这个需要os的协助）,在访问其他系统时就会自动认证并登录.</p>
-<h2 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h2><h3 id="cookie共享"><a href="#cookie共享" class="headerlink" title="cookie共享"></a>cookie共享</h3><p>当我们只有一个系统时，我们可能会将登录信息存储在cookie或session中（如果直接将用户信息存储cookie中，一是可能存不下，二是可能会有安全问题，即使加密，由于代码用户可以看见，也存在被破解的风险).</p>
+        <h1 id="单点登录"><a href="#单点登录" class="headerlink" title="单点登录"></a>单点登录</h1><h2 id="为什么要单点登录"><a href="#为什么要单点登录" class="headerlink" title="为什么要单点登录"></a>为什么要单点登录</h2><p>你有A,B,C,D… 等多个系统,每个系统都需要在登录状态下才能使用.</p>
+<p>那对于用户来说怎么办?<br>每个系统用的时候都登录一遍吗?<br>岂不很麻烦？<br>所以就产生单点登录的需求，即用户在同一个浏览器上只需要登录一次(跨浏览器的目前好像没有做到的，这个需要os的协助）,在访问其他系统时就会自动认证并登录.</p>
+<h2 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h2><h3 id="cookie共享"><a href="#cookie共享" class="headerlink" title="cookie共享"></a>cookie共享</h3><p>当我们只有一个系统时，我们可能会将登录信息存储在cookie或session中.</p>
+<ul>
+<li><p>存在cookie中的问题?</p>
+<p>如果直接将用户信息存储cookie中</p>
+<p>一是可能存不下</p>
+<p>二是可能会有安全问题，即使加密，由于代码用户可以看见，也存在被破解的风险</p>
+</li>
+</ul>
 <p>那当我们有多个系统A,B,C时，是否依然可以如上的方法呢?</p>
 <p>当多个系统拥有共同的顶级域名时，依据cookie的可见性规则，使用上述的方案也可实现单点登录的需求.</p>
 <h3 id="中间页跳转"><a href="#中间页跳转" class="headerlink" title="中间页跳转"></a>中间页跳转</h3><p>那么如果A,B,C三个系统不具有共同的顶级域名时该如何处理?</p>
-<p>我们可以独立出一个单独的系统D(假设D系统的域名为<a href="http://www.acct.com)专门负责用户登录与认证" target="_blank" rel="noopener">www.acct.com)专门负责用户登录与认证</a>.</p>
-<p>那么在用户登录<a href="http://www.acct.com后，在浏览器的cookie中，该域名下就会有我们写入的cookie" target="_blank" rel="noopener">www.acct.com后，在浏览器的cookie中，该域名下就会有我们写入的cookie</a></p>
-<p><a href="http://www.acct.com/" target="_blank" rel="noopener">www.acct.com/</a>  维护登录cookie</p>
+<p>我们可以独立出一个单独的系统D(假设D系统的域名为<a href="http://www.acl.com)专门负责用户登录与认证" target="_blank" rel="noopener">www.acl.com)专门负责用户登录与认证</a>.</p>
+<p>那么在用户登录<a href="http://www.acl.com后，在浏览器的cookie中，该域名下就会有我们写入的cookie" target="_blank" rel="noopener">www.acl.com后，在浏览器的cookie中，该域名下就会有我们写入的cookie</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">www.acl.com/  维护登录cookie</span><br></pre></td></tr></table></figure>
+
 <p>当系统A访问页面<a href="http://www.a.com/a.html时，可以按照如下操作流程进行" target="_blank" rel="noopener">www.a.com/a.html时，可以按照如下操作流程进行</a></p>
 <ol>
 <li><p>浏览器向服务端请求 <a href="http://www.a.com/a.html" target="_blank" rel="noopener">www.a.com/a.html</a></p>
 </li>
-<li><p>服务端判断是否有cookie,没有则返回302重定向到 <a href="http://www.acct.com并携带上原始的连接" target="_blank" rel="noopener">www.acct.com并携带上原始的连接</a>.<br>eg: <a href="http://www.acct.com/sso?target=www.a.com/a.html" target="_blank" rel="noopener">http://www.acct.com/sso?target=www.a.com/a.html</a></p>
+<li><p>服务端判断是否有cookie,没有则返回302重定向到 <a href="http://www.acl.com并携带上原始的连接" target="_blank" rel="noopener">www.acl.com并携带上原始的连接</a>. </p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.acl.com/sso?target=www.a.com/a.html</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>浏览器访问 <a href="http://www.acct.com/sso?target=www.a.com/a.html" target="_blank" rel="noopener">http://www.acct.com/sso?target=www.a.com/a.html</a><br> 由于之前已经登录过了,那么acct的服务端会检测到cookie的存在。说明当前浏览器之前已经登录过了. 此时只需要生成一个ticketId并添加到目标连接后面，然后使用302在重定向回<a href="http://www.a.com/a.html即可" target="_blank" rel="noopener">www.a.com/a.html即可</a>.<br> eg:<br> <a href="http://www.a.com/a.html?ticketId=abcdefg" target="_blank" rel="noopener">www.a.com/a.html?ticketId=abcdefg</a></p>
+<li><p>浏览器访问 <a href="http://www.acl.com/sso?target=www.a.com/a.html" target="_blank" rel="noopener">http://www.acl.com/sso?target=www.a.com/a.html</a> </p>
+<p> 由于之前已经登录过了,那么该请求发送时，就会携带上之前的cookie，一起发送的acl服务端。acl服务端校验cookie合法性通过后就可以认为当前浏览器之前已经登录过了. 此时只需要生成一个ticketId并添加到目标连接后面，然后使用302在重定向回<a href="http://www.a.com/a.html即可" target="_blank" rel="noopener">www.a.com/a.html即可</a>. </p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">www.a.com/a.html?ticketId=abcdefg</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>浏览器再次访问 <a href="http://www.a.com/a.html?ticketId=abcdefg" target="_blank" rel="noopener">www.a.com/a.html?ticketId=abcdefg</a><br>后端服务在处理请求过程中，会检测到ticketId的存在，验证正确性后可以通过相应的接口向D系统获取用户信息，然后在自己的cookie中写入已登录标识.</p>
+<li><p>浏览器再次访问 <a href="http://www.a.com/a.html?ticketId=abcdefg" target="_blank" rel="noopener">www.a.com/a.html?ticketId=abcdefg</a></p>
+<p>后端服务在处理请求过程中，会检测到ticketId的存在，访问acl服务验证正确性后可以通过相应的接口向D系统获取用户信息，然后在自己的cookie中写入已登录标识.</p>
 </li>
 </ol>
 <ul>
 <li><p>容易忽略的关键点</p>
 <p>  单点登录理解过程中容易陷入一个误区：</p>
 <p>  即系统要校验一个用户是否已登录，必须得通过用户信息. 然而很明显单点系统并不是这样的.</p>
-<p>  因为事实上验证一个用户是否登录靠的是检查当前浏览器中 登录应用是否已经种植了登录的cookie.如果有就说明登录过，如果没有才需要渲染出登录页.</p>
+<p>  因为事实上验证一个用户是否登录靠的是检查当前浏览器中 <strong>登录应用是否已经种植了登录的cookie</strong>.如果有就说明登录过，如果没有才需要渲染出登录页.</p>
 </li>
 </ul>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies</a></p>
@@ -553,7 +565,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
