@@ -133,7 +133,7 @@
 
 
 
-  <title>归档 | 蓝星码农生存日志</title>
+  <title>Nginx | 蓝星码农生存日志</title>
   
 
 
@@ -152,7 +152,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -298,390 +298,278 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
 
-      <span class="archive-page-counter">
-        
-        
-         
-        
-        OK! 目前共计 44 篇日志。 继续努力。
-      </span>
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dumbdonkey.github.io/2019/11/07/nginx/">
 
-      
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="dumbdonkey">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝星码农生存日志">
+    </span>
+
+    
+      <header class="post-header">
 
         
         
+          <h1 class="post-title" itemprop="name headline">Nginx</h1>
         
 
-        
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-07T20:51:33+08:00">2019-11-07</time>
+            
+
+            
+
+            
+          </span>
+
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
 
-        
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/11/07/nginx/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/11/07/nginx/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/09/29/亲历冷启动问题/" itemprop="url">
-              
-                <span itemprop="name">亲历冷启动问题</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-09-29T15:02:20+08:00" content="2019-09-29">
-          09-29
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+          
 
+        </div>
+      </header>
+    
 
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/09/17/redis-error/" itemprop="url">
-              
-                <span itemprop="name">redis_error</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-09-17T10:20:43+08:00" content="2019-09-17">
-          09-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/09/12/asm/" itemprop="url">
-              
-                <span itemprop="name">asm</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-09-12T15:13:44+08:00" content="2019-09-12">
-          09-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
+      
+        <h2 id="What-is-nginx"><a href="#What-is-nginx" class="headerlink" title="What is nginx"></a>What is nginx</h2><p>NGINX is a well known open source project originally written by Igor Sysoev, a Russian engineer. Igor started the project in 2002 and made it public in 2004. Since that time NGINX has become a de‑facto standard for high‑performance, scalable websites. Tens of millions of active websites use NGINX, including the majority of the 100,000 busiest websites in the world. Companies like Airbnb, Box, Dropbox, Netflix, Tumblr, WordPress.com, and many others deploy NGINX for scalability and performance reasons.</p>
+<p>NGINX is a high‑performance, highly scalable, highly available web server, reverse proxy server, and web accelerator (combining the features of an HTTP load balancer, content cache, and more). NGINX offers a highly scalable architecture that is very different from that of Apache (and many other open source and commercial products in the same category). NGINX has a modular, event‑driven, asynchronous, single-threaded architecture that scales extremely well on generic server hardware and across multi-processor systems. NGINX uses all of the underlying power of modern operating systems like Linux to optimize the usage of memory, CPU, and network, and extract the maximum performance out of a physical or virtual server. The end result is that NGINX can often serve at least 10x more (and often 100–1000x more) requests per server compared to Apache – that means more connected users per server, better bandwidth utilization, less CPU and RAM consumed, and a greener environment too!</p>
+<p>For more information about the NGINX architecture please refer to a chapter dedicated to NGINX in the “Architecture of Open Source Applications” book.</p>
+<p>模块化，事件驱动</p>
+<h2 id="配置示例"><a href="#配置示例" class="headerlink" title="配置示例"></a>配置示例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line">    sendfile        on;</span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line">    #分离upstream</span><br><span class="line">    include vhost/*.upstream;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen       18080;</span><br><span class="line">        server_name  localhost;</span><br><span class="line">        access_log  logs/host.access.log  main;</span><br><span class="line"></span><br><span class="line">        #默认本地处理</span><br><span class="line">        location / &#123;</span><br><span class="line">            proxy_pass http://xxxx/;</span><br><span class="line">            proxy_redirect default;</span><br><span class="line">            #root   html;</span><br><span class="line">            #index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">        #分离location配置</span><br><span class="line">	    include vhost/*.conf;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-        
-        
+<ul>
+<li><p>upstream</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">upstream xx_server &#123;</span><br><span class="line">    server xx:5601;</span><br><span class="line">    server xx:5601;</span><br><span class="line">    session_sticky cookie=_ng_route_;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>location</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">location /log &#123;</span><br><span class="line">    rewrite /log/(.*) /$1 break;</span><br><span class="line">    access_log logs/xxx.log;</span><br><span class="line">    proxy_pass http://xx_server/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-        
+</li>
+</ul>
+<h2 id="一些基于nginx的项目"><a href="#一些基于nginx的项目" class="headerlink" title="一些基于nginx的项目"></a>一些基于nginx的项目</h2><ol>
+<li><p><a href="https://tengine.taobao.org/documentation.html" target="_blank" rel="noopener">Tengine</a></p>
+<p> 阿里开源,编译3方模块时坑更少.</p>
+</li>
+<li><p><a href="http://openresty.org/cn/samples.html" target="_blank" rel="noopener">OpenResty</a></p>
+<p> ref: <a href="https://moonbingbing.gitbooks.io/openresty-best-practices/content/" target="_blank" rel="noopener">https://moonbingbing.gitbooks.io/openresty-best-practices/content/</a></p>
+<p> 留坑，待看.    </p>
+</li>
+</ol>
+<h2 id="容易忽略的问题"><a href="#容易忽略的问题" class="headerlink" title="容易忽略的问题"></a>容易忽略的问题</h2><ol>
+<li>proxy_pass后的trailing slash(尾部斜杠)(仔细阅读proxy_pass的文档即可)</li>
+</ol>
+<pre><code>在nginx中配置proxy_pass时，如果是按照^~匹配路径时,要注意proxy_pass后的url最后的/,
+当加上了/，相当于是绝对根路径，则nginx不会把location中匹配的路径部分代理走;
+如果没有/，则会把匹配的路径部分也给代理走。
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+eg:</code></pre><ul>
+<li><p>不带/</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location /test/ &#123;</span><br><span class="line">    proxy_pass http://t6:8300;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/09/10/linux-adv-tools/" itemprop="url">
-              
-                <span itemprop="name">linux_adv_tools</span>
-              
-            </a>
-        
-      </h2>
+<p>访问url = <a href="http://server/test/test.jsp，则被nginx代理后，请求路径会变为" target="_blank" rel="noopener">http://server/test/test.jsp，则被nginx代理后，请求路径会变为</a></p>
+<p><strong><a href="http://proxy_pass/test/test.jsp" target="_blank" rel="noopener">http://proxy_pass/test/test.jsp</a></strong>，将test/作为根路径，请求test/路径下的资源</p>
+</li>
+</ul>
+<ul>
+<li><p>带/</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location /test/ &#123;</span><br><span class="line">    proxy_pass http://t6:8300/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-09-10T15:59:02+08:00" content="2019-09-10">
-          09-10
-        </time>
-      </div>
+<p>  访问url = <a href="http://server/test/test.jsp，则被nginx代理后，请求路径会变为" target="_blank" rel="noopener">http://server/test/test.jsp，则被nginx代理后，请求路径会变为</a><br>  <strong><a href="http://proxy_pass/test.jsp" target="_blank" rel="noopener">http://proxy_pass/test.jsp</a></strong>，直接访问server的根资源</p>
+</li>
+</ul>
+<ol start="2">
+<li><p>301 重定向</p>
+<p> <img src="./resource/2019-11-08-10-11-16.png" alt></p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location /godeye &#123;</span><br><span class="line">    root /www/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    </header>
-  </article>
-
-
+<p> 这种配置下,nginx会自动添加上斜杠返回一个301重定向给浏览器. 默认重定向url是携带port的。就会出现图示中的情况.</p>
+<p> 通过port_in_redirect关闭后. 请求依然存在问题..</p>
+<p> 因为301是permenant redirection，浏览器完全可以缓存这个记录。所以新添加的规则并不会被使用。关闭cache后，一起恢复正常.</p>
+<p> ref: nginx document</p>
+<p> If a location is defined by a prefix string that ends with the slash character, and requests are processed by one of proxy_pass, fastcgi_pass, uwsgi_pass, scgi_pass, or memcached_pass, then the special processing is performed. In response to a request with URI equal to this string, <strong>but without the trailing slash, a permanent redirect with the code 301 will be returned to the requested URI with the slash appended.</strong></p>
+</li>
+</ol>
+<h2 id="Session黏连问题"><a href="#Session黏连问题" class="headerlink" title="Session黏连问题"></a>Session黏连问题</h2><p>如果被代理的应用使用了非共享session. 那么在有多个back server的时候，肯定不希望因为nginx的负载均衡策略，导致登录态的混乱.</p>
+<p>常见解决方式.</p>
+<ol>
+<li><p>基于ip_hash策略。</p>
+<p> nginx默认支持，前提是nginx收到的client addr不变化。对于client经过多层代理后才到达nginx的场景不适合.</p>
+</li>
+<li><p>使用第三方的session_sticky模块。</p>
+<p> 原理：</p>
+<p> 第一次返回response时，写入一个用来标记路由信息的cookie，基于每次请求携带的cookie来保持session的稳定.</p>
+</li>
+</ol>
+<h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><ol>
+<li><p><a href="https://serverfault.com/questions/426726/do-http-reverse-proxies-typically-enable-http-keep-alive-on-the-client-side-of-t" target="_blank" rel="noopener">为什么一般会禁止nginx 和后端服务器间的长连接</a></p>
+<p> If HTTP Keep-Alive is so great, why not use it on the server side as well?<br>HTTP reverse proxies (like HAproxy) are typically deployed very close to the backend servers they are proxying for. In most cases the latency between the reverse proxy and its backend server/s will be under 1ms, so establishing a TCP connection is much faster than it is between a client.<br>That’s only half the reason though. An HTTP server allocates a certain amount of memory for each client connection. With Keep-Alive, it will keep the connection alive, and by extension it’ll keep a certain amount of memory in use on the server, until the Keep-Alive timeout is reached, which may be up to 15s, depending on server configuration.<br>So if we consider the effects of using Keep-Alive on the server side of an HTTP reverse proxy, we are increasing the need for memory, but because the latency between the proxy and the server is so low, we get no real benefit from the reduction in time taken for TCP’s 3-way handshake, so its typically better to just disable Keep-Alive between the proxy and the web server in this scenario.</p>
+<p>  服务端3次握手的损耗低于内存资源的损耗，所以没必要keep-alive.</p>
+</li>
+</ol>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/09/10/计算机基础/" itemprop="url">
-              
-                <span itemprop="name">计算机基础</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-09-10T11:09:59+08:00" content="2019-09-10">
-          09-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/09/09/java中一些初看略显奇怪的地方/" itemprop="url">
-              
-                <span itemprop="name">java中一些初看略显奇怪的地方</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-09-09T22:31:01+08:00" content="2019-09-09">
-          09-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/09/09/hexo最佳实践/" itemprop="url">
-              
-                <span itemprop="name">添加一段代码，让hexo更好的支持本地图片</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-09-09T11:58:11+08:00" content="2019-09-09">
-          09-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/09/09/fastjson泛型逆序列化问题/" itemprop="url">
-              
-                <span itemprop="name">fastjson泛型逆序列化问题</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-09-09T11:20:14+08:00" content="2019-09-09">
-          09-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/08/01/异常机器排查/" itemprop="url">
-              
-                <span itemprop="name">异常机器排查</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-08-01T21:26:51+08:00" content="2019-08-01">
-          08-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/07/24/并发任务控制设计/" itemprop="url">
-              
-                <span itemprop="name">并发任务控制设计</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-07-24T22:39:28+08:00" content="2019-07-24">
-          07-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>谢绝打赏，如果您非要，那下不为例哦 😄!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechat.png" alt="dumbdonkey 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="dumbdonkey 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    dumbdonkey
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://dumbdonkey.github.io/2019/11/07/nginx/" title="Nginx">https://dumbdonkey.github.io/2019/11/07/nginx/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/工具使用/" rel="tag"># 工具使用</a>
+          
+            <a href="/tags/Nginx/" rel="tag"># Nginx</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/05/tomcat-endpoint/" rel="next" title>
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/2019/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/2019/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2019/page/3/">3</a><a class="extend next" rel="next" href="/archives/2019/page/3/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -689,6 +577,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -709,8 +604,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -788,6 +692,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-nginx"><span class="nav-number">1.</span> <span class="nav-text">What is nginx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置示例"><span class="nav-number">2.</span> <span class="nav-text">配置示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些基于nginx的项目"><span class="nav-number">3.</span> <span class="nav-text">一些基于nginx的项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容易忽略的问题"><span class="nav-number">4.</span> <span class="nav-text">容易忽略的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session黏连问题"><span class="nav-number">5.</span> <span class="nav-text">Session黏连问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FAQ"><span class="nav-number">6.</span> <span class="nav-text">FAQ</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -911,6 +831,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.0"></script>
+
+
 
   
 
