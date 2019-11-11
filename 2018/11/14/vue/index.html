@@ -75,18 +75,18 @@
 
 
 
-<meta name="description" content="TBD">
+<meta name="description" content="站在宇宙的尽头,穿越浩渺时空,俯视人生、对待生命!">
 <meta name="keywords" content="码农 蓝星">
 <meta property="og:type" content="website">
-<meta property="og:title" content="蓝星码农生存日志">
-<meta property="og:url" content="https://dumbdonkey.github.io/about/index.html">
+<meta property="og:title" content="分类">
+<meta property="og:url" content="https://dumbdonkey.github.io/categories/index.html">
 <meta property="og:site_name" content="蓝星码农生存日志">
-<meta property="og:description" content="TBD">
+<meta property="og:description" content="站在宇宙的尽头,穿越浩渺时空,俯视人生、对待生命!">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-08T04:42:26.601Z">
+<meta property="og:updated_time" content="2019-09-08T05:05:09.408Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="蓝星码农生存日志">
-<meta name="twitter:description" content="TBD">
+<meta name="twitter:title" content="分类">
+<meta name="twitter:description" content="站在宇宙的尽头,穿越浩渺时空,俯视人生、对待生命!">
 
 
 
@@ -118,7 +118,7 @@
 
 
 
-  <link rel="canonical" href="https://dumbdonkey.github.io/about/">
+  <link rel="canonical" href="https://dumbdonkey.github.io/categories/">
 
 
 
@@ -465,6 +465,11 @@
 <p><img src="./resource/2019-11-02-17-23-20.png" alt></p>
 <p>define it as mixin or something and then just bring it in any component you need</p>
 </li>
+<li><p>当query param的value是数组类型，但是只有一个value的话，会退化成String</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue.runtime.esm.js?2b0e:619 [Vue warn]: Invalid prop: type check failed for prop &quot;channel&quot;. Expected Array, got String with value &quot;垂类频道整体&quot;.</span><br></pre></td></tr></table></figure>
+
+<p>channel本来是多个类型的，但是由于只有一个值，变成了string类型</p>
+</li>
 </ol>
 <h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ol>
 <li><p>能否像java一样不写this ？</p>
@@ -487,6 +492,27 @@
 </li>
 <li><p>如何添加static property</p>
 </li>
+</ol>
+<h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><h3 id="针对用户输入动态调整url后的参数"><a href="#针对用户输入动态调整url后的参数" class="headerlink" title="针对用户输入动态调整url后的参数?"></a>针对用户输入动态调整url后的参数?</h3><p>两种方式:</p>
+<ol>
+<li><p>使用this.$router.replace or push方法更新</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">this.$router.push(&#123;path:this.$route.path,query:&#123;</span><br><span class="line">        startDate: this.timeInst[0],</span><br><span class="line">        endDate: this.timeInst[1],</span><br><span class="line">        channel: this.$refs.channel.channelInst,</span><br><span class="line">        freq: this.$refs.freq.loginFreqInst,</span><br><span class="line">        user: this.$refs.user.userInst</span><br><span class="line">      &#125;&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>注意此处与watch route的配合,如果处理不当会导致死循环…</p>
+</li>
+<li><p>使用window api直接替换</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">window.history.replaceState(&#123;&#125;, &apos;&apos;,</span><br><span class="line">  window.location.origin + &apos;/#&apos; + vue.$router.currentRoute.path + &apos;?&apos; + qs.stringify(query,</span><br><span class="line">  &#123; arrayFormat: &apos;comma&apos; &#125;))</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="在用户输入带参数的链接后，router能够识别到并传递给component"><a href="#在用户输入带参数的链接后，router能够识别到并传递给component" class="headerlink" title="在用户输入带参数的链接后，router能够识别到并传递给component"></a>在用户输入带参数的链接后，router能够识别到并传递给component</h3><ol>
+<li><p>使用route watch监控route的变化</p>
+<p><img src="./resource/2019-11-08-14-23-08.png" alt></p>
+</li>
+</ol>
+<h3 id="route参数传递"><a href="#route参数传递" class="headerlink" title="route参数传递"></a>route参数传递</h3><p>ref: <a href="https://router.vuejs.org/guide/essentials/passing-props.html#boolean-mode" target="_blank" rel="noopener">https://router.vuejs.org/guide/essentials/passing-props.html#boolean-mode</a></p>
+<ol>
+<li>在route定义时使用props传参.<br>注意: <strong>props:true</strong>只支持传递path variable. query param不支持的.<br><img src="./resource/2019-11-08-15-52-38.png" alt></li>
 </ol>
 <h2 id="Vue-实例-or-组件"><a href="#Vue-实例-or-组件" class="headerlink" title="Vue 实例 or 组件"></a>Vue 实例 or 组件</h2><ul>
 <li><p>lifecycle</p>
@@ -876,7 +902,7 @@ actions: </code></pre><p>}</p>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue"><span class="nav-number">1.</span> <span class="nav-text">Vue</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#示例"><span class="nav-number">1.1.</span> <span class="nav-text">示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#坑"><span class="nav-number">1.1.1.</span> <span class="nav-text">坑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些容易混淆的点"><span class="nav-number">1.1.2.</span> <span class="nav-text">一些容易混淆的点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">1.1.3.</span> <span class="nav-text">问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue-实例-or-组件"><span class="nav-number">1.2.</span> <span class="nav-text">Vue 实例 or 组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模板"><span class="nav-number">1.3.</span> <span class="nav-text">模板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指令"><span class="nav-number">1.4.</span> <span class="nav-text">指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修饰符"><span class="nav-number">1.5.</span> <span class="nav-text">修饰符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算属性-computed-properties-amp-侦听属性-watched-properties"><span class="nav-number">1.6.</span> <span class="nav-text">计算属性(computed properties) &amp; 侦听属性(watched properties)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Class-and-Style-Bindings-（类与样式的绑定）"><span class="nav-number">1.7.</span> <span class="nav-text">Class and Style Bindings （类与样式的绑定）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义事件"><span class="nav-number">1.8.</span> <span class="nav-text">自定义事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#slot"><span class="nav-number">1.9.</span> <span class="nav-text">slot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态组件"><span class="nav-number">1.10.</span> <span class="nav-text">动态组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#edge-cases"><span class="nav-number">1.11.</span> <span class="nav-text">edge-cases</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#transitioning"><span class="nav-number">1.12.</span> <span class="nav-text">transitioning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vuex"><span class="nav-number">1.13.</span> <span class="nav-text">vuex</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#getters"><span class="nav-number">1.13.1.</span> <span class="nav-text">getters</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue组件中使用state"><span class="nav-number">1.13.2.</span> <span class="nav-text">Vue组件中使用state</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#store的模块化"><span class="nav-number">1.13.3.</span> <span class="nav-text">store的模块化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.14.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#style-scoped"><span class="nav-number">1.14.1.</span> <span class="nav-text">style scoped</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue"><span class="nav-number">1.</span> <span class="nav-text">Vue</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#示例"><span class="nav-number">1.1.</span> <span class="nav-text">示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#坑"><span class="nav-number">1.1.1.</span> <span class="nav-text">坑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些容易混淆的点"><span class="nav-number">1.1.2.</span> <span class="nav-text">一些容易混淆的点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">1.1.3.</span> <span class="nav-text">问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FAQ"><span class="nav-number">1.2.</span> <span class="nav-text">FAQ</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#针对用户输入动态调整url后的参数"><span class="nav-number">1.2.1.</span> <span class="nav-text">针对用户输入动态调整url后的参数?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在用户输入带参数的链接后，router能够识别到并传递给component"><span class="nav-number">1.2.2.</span> <span class="nav-text">在用户输入带参数的链接后，router能够识别到并传递给component</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#route参数传递"><span class="nav-number">1.2.3.</span> <span class="nav-text">route参数传递</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue-实例-or-组件"><span class="nav-number">1.3.</span> <span class="nav-text">Vue 实例 or 组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模板"><span class="nav-number">1.4.</span> <span class="nav-text">模板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指令"><span class="nav-number">1.5.</span> <span class="nav-text">指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修饰符"><span class="nav-number">1.6.</span> <span class="nav-text">修饰符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算属性-computed-properties-amp-侦听属性-watched-properties"><span class="nav-number">1.7.</span> <span class="nav-text">计算属性(computed properties) &amp; 侦听属性(watched properties)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Class-and-Style-Bindings-（类与样式的绑定）"><span class="nav-number">1.8.</span> <span class="nav-text">Class and Style Bindings （类与样式的绑定）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义事件"><span class="nav-number">1.9.</span> <span class="nav-text">自定义事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#slot"><span class="nav-number">1.10.</span> <span class="nav-text">slot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态组件"><span class="nav-number">1.11.</span> <span class="nav-text">动态组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#edge-cases"><span class="nav-number">1.12.</span> <span class="nav-text">edge-cases</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#transitioning"><span class="nav-number">1.13.</span> <span class="nav-text">transitioning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vuex"><span class="nav-number">1.14.</span> <span class="nav-text">vuex</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#getters"><span class="nav-number">1.14.1.</span> <span class="nav-text">getters</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue组件中使用state"><span class="nav-number">1.14.2.</span> <span class="nav-text">Vue组件中使用state</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#store的模块化"><span class="nav-number">1.14.3.</span> <span class="nav-text">store的模块化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.15.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#style-scoped"><span class="nav-number">1.15.1.</span> <span class="nav-text">style scoped</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
