@@ -75,18 +75,18 @@
 
 
 
-<meta name="description" content="站在宇宙的尽头,穿越浩渺时空,俯视人生、对待生命!">
+<meta name="description" content="TBD">
 <meta name="keywords" content="码农 蓝星">
 <meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="https://dumbdonkey.github.io/categories/index.html">
+<meta property="og:title" content="蓝星码农生存日志">
+<meta property="og:url" content="https://dumbdonkey.github.io/about/index.html">
 <meta property="og:site_name" content="蓝星码农生存日志">
-<meta property="og:description" content="站在宇宙的尽头,穿越浩渺时空,俯视人生、对待生命!">
+<meta property="og:description" content="TBD">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-08T05:05:09.408Z">
+<meta property="og:updated_time" content="2019-09-08T04:42:26.601Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="分类">
-<meta name="twitter:description" content="站在宇宙的尽头,穿越浩渺时空,俯视人生、对待生命!">
+<meta name="twitter:title" content="蓝星码农生存日志">
+<meta name="twitter:description" content="TBD">
 
 
 
@@ -118,7 +118,7 @@
 
 
 
-  <link rel="canonical" href="https://dumbdonkey.github.io/categories/">
+  <link rel="canonical" href="https://dumbdonkey.github.io/about/">
 
 
 
@@ -442,6 +442,7 @@
 <p> 第一次返回response时，写入一个用来标记路由信息的cookie，基于每次请求携带的cookie来保持session的稳定.</p>
 </li>
 </ol>
+<h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><p><img src="./resource/2019-11-12-14-24-48.png" alt></p>
 <h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><ol>
 <li><p><a href="https://serverfault.com/questions/426726/do-http-reverse-proxies-typically-enable-http-keep-alive-on-the-client-side-of-t" target="_blank" rel="noopener">为什么一般会禁止nginx 和后端服务器间的长连接</a></p>
 <p> If HTTP Keep-Alive is so great, why not use it on the server side as well?<br>HTTP reverse proxies (like HAproxy) are typically deployed very close to the backend servers they are proxying for. In most cases the latency between the reverse proxy and its backend server/s will be under 1ms, so establishing a TCP connection is much faster than it is between a client.<br>That’s only half the reason though. An HTTP server allocates a certain amount of memory for each client connection. With Keep-Alive, it will keep the connection alive, and by extension it’ll keep a certain amount of memory in use on the server, until the Keep-Alive timeout is reached, which may be up to 15s, depending on server configuration.<br>So if we consider the effects of using Keep-Alive on the server side of an HTTP reverse proxy, we are increasing the need for memory, but because the latency between the proxy and the server is so low, we get no real benefit from the reduction in time taken for TCP’s 3-way handshake, so its typically better to just disable Keep-Alive between the proxy and the web server in this scenario.</p>
@@ -537,6 +538,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/11/12/如何估算合理的线程数/" rel="prev" title="如何估算合理的线程数">
+                如何估算合理的线程数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -617,7 +622,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -688,7 +693,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-nginx"><span class="nav-number">1.</span> <span class="nav-text">What is nginx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置示例"><span class="nav-number">2.</span> <span class="nav-text">配置示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些基于nginx的项目"><span class="nav-number">3.</span> <span class="nav-text">一些基于nginx的项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容易忽略的问题"><span class="nav-number">4.</span> <span class="nav-text">容易忽略的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session黏连问题"><span class="nav-number">5.</span> <span class="nav-text">Session黏连问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FAQ"><span class="nav-number">6.</span> <span class="nav-text">FAQ</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-nginx"><span class="nav-number">1.</span> <span class="nav-text">What is nginx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置示例"><span class="nav-number">2.</span> <span class="nav-text">配置示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些基于nginx的项目"><span class="nav-number">3.</span> <span class="nav-text">一些基于nginx的项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容易忽略的问题"><span class="nav-number">4.</span> <span class="nav-text">容易忽略的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session黏连问题"><span class="nav-number">5.</span> <span class="nav-text">Session黏连问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#架构"><span class="nav-number">6.</span> <span class="nav-text">架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FAQ"><span class="nav-number">7.</span> <span class="nav-text">FAQ</span></a></li></ol></div>
             
 
           </div>
